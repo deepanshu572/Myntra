@@ -1,0 +1,196 @@
+@font-face {
+  font-family: boldFont;
+  src: url(./assets/font/Assistant-Bold.woff);
+}
+@font-face {
+  font-family: RegularFont;
+  src: url(./assets/font/Assistant-Regular.woff);
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+   font-family: RegularFont, sans-serif;
+}
+body{
+  width: 100%;
+  height: 150vh;
+}
+.main{
+  width: 100%;
+  height: 100%;
+}
+.navbar{
+  display: flex;
+  align-items: center;
+   font-family: boldFont, sans-serif;
+    top: 0;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .05);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .05);
+    background-color: #fff;
+        padding: 10px 45px;
+        padding-right: 20px;
+
+}
+.icon_data {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+        padding-top: 10px;
+}
+.nav_item{
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.icon_data > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: black;
+    text-decoration: none;
+}
+.search_bar {
+         display: flex
+;
+    align-items: center;
+    gap: 10px;
+    background-color: #F5F5F6;
+    padding: 9px 12px;
+    width: 58%;
+    border-radius: 3px;
+}
+.search_bar svg{
+      width: 20px;
+    height: 20px;
+    fill: gray;
+        margin-right: 15px;
+
+}
+.head_category_heading img {
+    width: 100%;
+}
+.hero_sec{
+  width: 90%;
+  margin: auto;
+    margin-top: 6rem;
+background-color: #f7f7f7;
+display: flex;
+align-items: center;
+justify-content: center;
+height: 80vh;
+
+}
+
+.search_bar > input {
+       all: unset;
+    color: gray;
+    width: 100%;
+    font-size: 14px;
+   
+}
+.navbar_right{
+ display: flex
+;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    justify-content: end;
+    gap: 27px;
+    padding-right: 15px;
+}
+.cat_nav {
+    display: flex
+;
+    gap: 37px;
+    align-items: center;
+}
+.cat_nav button {
+      all: unset;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.nav_item img{
+
+    width: 60px
+}
+
+.icon_data > a > p {
+       font-size: 12px;
+    font-weight: 600;
+}
+.category_div {
+      display: flex
+;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    width: 90%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+.card_box {
+       width: 157px;
+       background: url("https://www.artstoreonline.com.au/cdn/shop/products/wn_artists_cadmium-free-yellow-deep_swatch_600x600.jpg?v=1650599017");
+    /* background: linear-gradient(to bottom, #f7c942, #f18e1c);
+    background-blend-mode: overlay; */
+    padding: 5px 5px;
+
+}
+.hero_sec img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card_bottom_content {
+    text-align: center;
+}
+.card_img_sec img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+.card_img_sec {
+    height: 130px;
+}
+.banner_img_bootom img{
+  width: 100%;
+  padding: 20px;
+}
+
+
+.card_bottom_content h3 {
+    font-size: 15px;
+}
+
+.card_bottom_content > span {
+    font-size: 17px;
+    font-weight: 700;
+}
+.card_bottom_content p{
+   font-size: 12px;
+       font-weight: 700;
+
+}
+.card_bottom_content{
+    display: flex
+;
+    flex-direction: column;
+    gap: 2px;
+    padding: 9px 0;
+    padding-bottom: 2px;
+}
+.footer {
+  background-color: #FAFBFC;
+  height: 100vh;
+
+}
