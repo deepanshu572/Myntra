@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Card = ({data}) => {
   return (
-    <div className='card_box'>
+    <Link to={`AllProduct/${data.name}`} className='card_box'>
        <div className="card_img_sec">
         <img src={data.img} alt="" />
        </div>
@@ -13,7 +14,7 @@ const Card = ({data}) => {
 
            
        </div>
-    </div>
+    </Link>
   )
 }
 
