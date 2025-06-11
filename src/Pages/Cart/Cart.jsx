@@ -1,67 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckoutCartBox from "../../Components/CheckoutComponent/CheckoutCartBox";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartData } from "../../store/reducers/CartReducer";
 
 const Cart = () => {
-  const [Toggle, setToggle] = useState(false);
+  const dispatch = useDispatch();
 
-    const cartData= [
-        {
-            name: "Floral Printed Round Neck Thread Work Straight Cotton Kurta",
-            img: "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/32817851/2025/2/24/912fb18c-9e7b-4f62-854f-db38ce59e50a1740401100376-Anouk-Women-Floral-Printed-Regular-Pure-Cotton-Kurta-with-Tr-2.jpg",
-            brand :"suits and son's",
-            price : "400",
-            fPrice  :"700",
-            disc : "50"
-        },
-        {
-            name: "Floral Printed Round Neck Thread Work Straight Cotton Kurta",
-            img: "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/32817851/2025/2/24/912fb18c-9e7b-4f62-854f-db38ce59e50a1740401100376-Anouk-Women-Floral-Printed-Regular-Pure-Cotton-Kurta-with-Tr-2.jpg",
-            brand :"suits and son's",
-            price : "400",
-            fPrice  :"700",
-            disc : "50"
-        },
-        {
-            name: "Floral Printed Round Neck Thread Work Straight Cotton Kurta",
-            img: "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/32817851/2025/2/24/912fb18c-9e7b-4f62-854f-db38ce59e50a1740401100376-Anouk-Women-Floral-Printed-Regular-Pure-Cotton-Kurta-with-Tr-2.jpg",
-            brand :"suits and son's",
-            price : "400",
-            fPrice  :"700",
-            disc : "50"
-        },
-        {
-            name: "Floral Printed Round Neck Thread Work Straight Cotton Kurta",
-            img: "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/32817851/2025/2/24/912fb18c-9e7b-4f62-854f-db38ce59e50a1740401100376-Anouk-Women-Floral-Printed-Regular-Pure-Cotton-Kurta-with-Tr-2.jpg",
-            brand :"suits and son's",
-            price : "400",
-            fPrice  :"700",
-            disc : "50"
-        },
-        {
-            name: "Floral Printed Round Neck Thread Work Straight Cotton Kurta",
-            img: "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/32817851/2025/2/24/912fb18c-9e7b-4f62-854f-db38ce59e50a1740401100376-Anouk-Women-Floral-Printed-Regular-Pure-Cotton-Kurta-with-Tr-2.jpg",
-            brand :"suits and son's",
-            price : "400",
-            fPrice  :"700",
-            disc : "50"
-        },
-        {
-            name: "Floral Printed Round Neck Thread Work Straight Cotton Kurta",
-            img: "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/32817851/2025/2/24/912fb18c-9e7b-4f62-854f-db38ce59e50a1740401100376-Anouk-Women-Floral-Printed-Regular-Pure-Cotton-Kurta-with-Tr-2.jpg",
-            brand :"suits and son's",
-            price : "400",
-            fPrice  :"700",
-            disc : "50"
-        },
-        {
-            name: "Floral Printed Round Neck Thread Work Straight Cotton Kurta",
-            img: "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/32817851/2025/2/24/912fb18c-9e7b-4f62-854f-db38ce59e50a1740401100376-Anouk-Women-Floral-Printed-Regular-Pure-Cotton-Kurta-with-Tr-2.jpg",
-            brand :"suits and son's",
-            price : "400",
-            fPrice  :"700",
-            disc : "50"
-        }
-    ];
+  useEffect(() => {
+    dispatch(getCartData());
+  }, []);
+  const [Toggle, setToggle] = useState(false);
+  const { cart } = useSelector((state) => state.CartReducer);
+
+  console.log(cart);
+
   return (
     <div className="cart_page mt_custom">
       <div className="cart_page_left">
@@ -207,83 +159,103 @@ const Cart = () => {
             </div>
           </div>
           <div className="cart_item_page_three_box">
-            {
-                cartData.map((item , index)=>{
-                   return <CheckoutCartBox key={index} data={item} />
-                })
-            }
+            {cart.map((item, index) => {
+              return <CheckoutCartBox key={index} data={item} />;
+            })}
           </div>
         </div>
       </div>
       <div className="cart_page_right">
         <div className="cart_page_right_coupon">
-            <h3>Coupon</h3>
-            <div className="cart_page_right_coupon_apply">
+          <h3>Coupon</h3>
+          <div className="cart_page_right_coupon_apply">
             <div className="cart_icon_coupon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" class="coupons-base-couponIcon"><g fill="none" fill-rule="evenodd" transform="rotate(45 6.086 5.293)"><path stroke="#000" d="M17.5 10V1a1 1 0 0 0-1-1H5.495a1 1 0 0 0-.737.323l-4.136 4.5a1 1 0 0 0 0 1.354l4.136 4.5a1 1 0 0 0 .737.323H16.5a1 1 0 0 0 1-1z"></path><circle cx="5.35" cy="5.35" r="1.35" fill="#000" fill-rule="nonzero"></circle></g></svg>
-                <h4>Apply Coupon</h4>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                class="coupons-base-couponIcon"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  transform="rotate(45 6.086 5.293)"
+                >
+                  <path
+                    stroke="#000"
+                    d="M17.5 10V1a1 1 0 0 0-1-1H5.495a1 1 0 0 0-.737.323l-4.136 4.5a1 1 0 0 0 0 1.354l4.136 4.5a1 1 0 0 0 .737.323H16.5a1 1 0 0 0 1-1z"
+                  ></path>
+                  <circle
+                    cx="5.35"
+                    cy="5.35"
+                    r="1.35"
+                    fill="#000"
+                    fill-rule="nonzero"
+                  ></circle>
+                </g>
+              </svg>
+              <h4>Apply Coupon</h4>
             </div>
             <div className="cart_btn_coupon">
-                <button>Apply</button>
+              <button>Apply</button>
             </div>
+          </div>
+          <div className="cart_page_donation">
+            <h5>Support transformative social work in India</h5>
+            <div className="donation_inp">
+              <input type="checkbox" name="" id="" />
+              <label htmlFor="">Donate and make a difference</label>
             </div>
-            <div className="cart_page_donation">
-                <h5>Support transformative social work in India</h5>
-                <div className="donation_inp">
-                    <input type="checkbox" name="" id="" />
-                    <label htmlFor="">
-                        Donate and make a difference
-                    </label>
-                </div>
-                <div className="btn_data">
-                    <button>₹10</button>
-                    <button>₹20</button>
-                    <button>₹30</button>
-                    <button>₹50</button>
-                </div>
-                {/* <div className="know">
+            <div className="btn_data">
+              <button>₹10</button>
+              <button>₹20</button>
+              <button>₹30</button>
+              <button>₹50</button>
+            </div>
+            {/* <div className="know">
                     Know More
                 </div> */}
-                {/* <hr /> */}
+            {/* <hr /> */}
+          </div>
+          <div className="cart_calculation_sec">
+            <div className="calc_head">
+              <h3>PRICE DETAILS (2 items)</h3>
             </div>
-            <div className="cart_calculation_sec">
-                <div className="calc_head">
-                    <h3>PRICE DETAILS (2 items)</h3>
-                </div>
-                <div className="calc_price mrp">
-                    <h4>Total MRP</h4>
-                    <p>₹7998</p>
-                </div>
-                <div className="calc_price disc_mrp green">
-                    <h4>Discount on MRP</h4>
-                    <p>-₹7998</p>
-                </div>
-                <div className="calc_price coupon_mrp">
-                    <h4>Coupon Discount</h4>
-                    <p class="theme">Apply Coupon</p>
-                </div>
-                <div className="calc_price donation_mrp">
-                    <h4>Social Work Donation</h4>
-                    <p>₹10</p>
-                </div>
-                <div className="calc_price platform_mrp green">
-                    <h4>Platform Fee</h4>
-                    <p>Free</p>
-                </div>
-                <div className="calc_price shipping_mrp green">
-                    <h4>Shipping Fee</h4>
-                    <p>Free</p>
-                </div>
-                <small>Free shipping for you</small>
+            <div className="calc_price mrp">
+              <h4>Total MRP</h4>
+              <p>₹7998</p>
+            </div>
+            <div className="calc_price disc_mrp green">
+              <h4>Discount on MRP</h4>
+              <p>-₹7998</p>
+            </div>
+            <div className="calc_price coupon_mrp">
+              <h4>Coupon Discount</h4>
+              <p class="theme">Apply Coupon</p>
+            </div>
+            <div className="calc_price donation_mrp">
+              <h4>Social Work Donation</h4>
+              <p>₹10</p>
+            </div>
+            <div className="calc_price platform_mrp green">
+              <h4>Platform Fee</h4>
+              <p>Free</p>
+            </div>
+            <div className="calc_price shipping_mrp green">
+              <h4>Shipping Fee</h4>
+              <p>Free</p>
+            </div>
+            <small>Free shipping for you</small>
 
-                <div className="calc_price total_Calc">
-                    <h4>Total Amount</h4>
-                     <p>₹1898</p>
-                </div>
-               <div className="btn_calc_amt">
-                <button >Place order</button>
-               </div>
+            <div className="calc_price total_Calc">
+              <h4>Total Amount</h4>
+              <p>₹1898</p>
             </div>
+            <div className="btn_calc_amt">
+              <button>Place order</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

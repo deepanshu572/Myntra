@@ -1,21 +1,30 @@
 import React from 'react'
 
-const CheckoutCartBox = () => {
+const CheckoutCartBox = (item) => {
+
+  console.log('====================================');
+  console.log(item.data);
+  console.log('====================================');
+  var item = item.data;
+  const discount = Math.round(((item.fprice - item.price) / item.fprice) * 100);
+  const imgLink = "https://pos.kalamitcompany.com/api/images/";
+
+
   return (
        <div className="cart_item_data">
               <div className="cart_item_data_img">
                 <img
-                  src="https://assets.myntassets.com/w_111,h_148,dpr_1.25,q_60,c_limit,fl_progressive/h_148,q_60,w_111/v1/assets/images/2025/FEBRUARY/25/YIYQKYmV_d445dbe26451447ca374ab37c5c80b85.jpg"
+                  src={imgLink + item?.imgs[0]}
                   alt=""
                 />
               </div>
               <div className="cart_item_data_txt">
-                <h4>singini</h4>
+                <h4>{item.cat_nm}</h4>
                 <h5>
-                  Women Purple Ethnic Motifs Embroidered Mirror Work Kurta with
-                  Trousers & Dupatta
+                 {item.product_nm}
                 </h5>
-                <small>Sold by:  JASLEEN PRINTS</small>
+                <small>Sold by:  {item.product_cm}
+                </small>
                 <div className="cart_item_select">
                   <div className="select_box">
                     <select name="" id="">
@@ -47,7 +56,7 @@ const CheckoutCartBox = () => {
                         d="M3.418 10 .898 5.604V4.568h.84c.336 0 .63-.047.882-.14.262-.103.476-.247.644-.434.178-.187.299-.41.364-.672H.898V2.286h2.716a1.694 1.694 0 0 0-.294-.644 1.289 1.289 0 0 0-.532-.434 1.678 1.678 0 0 0-.784-.168H.898V.004h6.314V1.04H5.014c.159.177.29.369.392.574.112.205.187.43.224.672h1.582v1.036H5.658c-.093.69-.36 1.232-.798 1.624-.438.383-1.003.644-1.694.784L5.91 10H3.418Z"
                       ></path>
                     </svg>
-                    1,245
+                    {item.price}
                   </div>
                   <del class="cart_item_fake_price">
                     <svg
@@ -70,9 +79,11 @@ const CheckoutCartBox = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    7,999
+                    {item.fprice}
                   </del>
-                  <span class="cart_item_discount">76% OFF</span>
+                  <span class="cart_item_discount">
+                    {discount + "%"}
+                  </span>
                 </div>
              
                   <div class="return_txt">

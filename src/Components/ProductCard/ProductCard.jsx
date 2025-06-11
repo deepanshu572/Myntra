@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 const ProductCard = ({data}) => {
   const imgLink = "https://pos.kalamitcompany.com/api/images/";
 
-
+    
   return (
     <Link to={`/product/${data.id}`}  className='product_card'>
       <div className="product_img">
