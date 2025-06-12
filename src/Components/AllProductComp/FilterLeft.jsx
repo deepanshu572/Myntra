@@ -3,12 +3,16 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { Link } from "react-router";
 
-const FilterLeft = (item) => {
-  const Categoryitem = item.data;
+const FilterLeft = ({ data, prd }) => {
+  // const data = data.data;
+  console.log("====================================");
+  console.log(data, prd);
+  console.log("====================================");
+  // return null
 
   const [SubCategory, setSubCategory] = useState();
 
-  let FilterMainCat = Categoryitem.filter((e) => {
+  let FilterMainCat = data.filter((e) => {
     return e.parent_id == 0;
   });
 
@@ -17,12 +21,10 @@ const FilterLeft = (item) => {
   const [selectedSubCat, setSelectedSubCat] = useState();
 
   const RenderNewData = (name, id, index) => {
-    // location.href= ` /AllProduct/${name}?Cid=${id}`
     setSelectedIndex(index);
-    
 
     setSubCategory(
-      Categoryitem.filter((item) => {
+      data.filter((item) => {
         return item.parent_id == id;
       })
     );
@@ -30,9 +32,6 @@ const FilterLeft = (item) => {
   const RenderSubCategoryData = (name, id, index) => {
     setSelectedSubCat(index);
   };
-  console.log("====================================");
-  console.log(SubCategory);
-  console.log("====================================");
 
   return (
     <div className="filter_left">
@@ -61,7 +60,7 @@ const FilterLeft = (item) => {
             <h4>👜 Sub Categories</h4>
           </div>
           <div className="filter_second_data">
-            {SubCategory?.map((item ,index) => {
+            {SubCategory?.map((item, index) => {
               return (
                 <Link
                   to={`/AllProduct/${item.name}?Cid=${item.id}`}
@@ -84,29 +83,26 @@ const FilterLeft = (item) => {
         " "
       )}
 
-      <div className="filter_third hd_padding">
-        <div className="filter_third_head">
-          <h4>🏷️ Brands</h4>
-        </div>
-        <div className="filter_third_data">
-          <div className="label_holder">
-            <input type="checkbox" name="SubCat" id="kurti" />
-            <label htmlFor="kurti">kurti</label>
+      {prd.length === 0 ? (
+        ""
+      ) : (
+        <div className="filter_third hd_padding">
+          <div className="filter_third_head">
+            <h4>🏷️ Brands</h4>
           </div>
-          <div className="label_holder">
-            <input type="checkbox" name="SubCat" id="pajama" />
-            <label htmlFor="pajama">pajama</label>
-          </div>
-          <div className="label_holder">
-            <input type="checkbox" name="SubCat" id="suits" />
-            <label htmlFor="suits">suits</label>
-          </div>
-          <div className="label_holder">
-            <input type="checkbox" name="SubCat" id="plazo" />
-            <label htmlFor="plazo">plazo</label>
+          <div className="filter_third_data">
+            {prd.map((item) => {
+              return (
+                <div className="label_holder">
+                  <input type="checkbox" name="SubCat" id={item} />
+                  <label htmlFor={item}>{item}</label>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </div>
+      )}
+
       <div className="filter_fourth hd_padding">
         <div className="filter_third_head">
           <h4>💰 Price</h4>

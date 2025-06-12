@@ -1179,7 +1179,25 @@ hr {
     height: 25px;
     border-radius: 50%;
 }
+.wrapper_all_product_right {
+    width: 100%;
+    position: relative;
+}
+.nothing{
+    flex-direction: column;
+}
+.nothing img{
+    margin-top: 5rem;
+    width: 150px;
+}
+.nothing p{
+    text-transform: uppercase;
+    font-weight: 800;
+}
 
+.wrapper_all_product_right .load {
+    background: #c4c4c412;
+}
 .label_holder input[type="radio"] {
   display: none;
 }

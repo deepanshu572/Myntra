@@ -7,27 +7,64 @@ import { getAsyncProductData } from "../../store/action/ProductAction";
 import { getAsyncCategoryData } from "../../store/action/CategoryAction";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../Components/Loader/Loader";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router-dom";
+import sad from "../../assets/img/sad.gif";
 
 const AllProduct = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.ProductReducer);
   const { category } = useSelector((state) => state.CategoryReducer);
   const [loading, SetLoading] = useState(true);
+  const [Prdloading, SetPrdLoading] = useState(true);
+  const [filterData, SetFilterData] = useState([]);
+  const [PrdArr, setPrdArr] = useState([]);
+  const { name } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const selectCategory = searchParams.get("Cid");
+  const CategoryFilter = () => {
+    SetFilterData(
+      products.filter((item) => {
+        return item.cat_id === selectCategory;
+      })
+    );
+  };
+const BrandFilter = () => {
+  const arr = filterData
+    ?.filter(item => item.product_cm)
+    .map(item => item.product_cm);
+
+  const uniqueArr = arr?.filter((item, index) => arr.indexOf(item) === index);
+  setPrdArr(uniqueArr);
+};
+
+
   useEffect(() => {
     dispatch(getAsyncProductData());
+    dispatch(getAsyncCategoryData());
+    SetFilterData(products);
+  }, []);
+
+  useEffect(() => {
+    // if (products.length > 0) {
+    // SetFilterData(products);
+    SetLoading(false);
+    // }
+  }, [products]);
+
+  useEffect(() => {
+    SetPrdLoading(true);
+    CategoryFilter();
 
     setTimeout(() => {
-       SetLoading(false);
-
+      SetPrdLoading(false);
     }, 800);
-          dispatch(getAsyncCategoryData());
+  }, [selectCategory]);
 
-  }, []);
-    useEffect(() => {
-    }, []);
-  // const { name} = useParams();
-  
+  useEffect(() => {
+  BrandFilter(); // runs on filterData change
+}, [filterData]);
+  console.log(PrdArr);
 
   return (
     <>
@@ -35,18 +72,34 @@ const AllProduct = () => {
         <Loader />
       ) : (
         <div className="all_product mt_custom">
-          
-          <ProductHeading />
+          <ProductHeading
+            categoryName={name}
+            itemNumbers={filterData?.length}
+          />
           <div className="wrapper_all_product">
             <FilterHead />
             <div className="wrapper_all_product_main_sec">
               <div className="wrapper_all_product_left">
-                <FilterLeft data = {category} />
+                <FilterLeft data={category} prd={PrdArr} />
               </div>
-              <div className="wrapper_all_product_right">
-                {products.map((item, index) => {
-                  return <ProductCard key={index} data={item} />;
-                })}
+              <div
+                className={`wrapper_all_product_right ${
+                  filterData.length === 0 ? "nothing" : ""
+                } `}
+              >
+                {Prdloading ? (
+                  <Loader />
+                ) : filterData.length > 0 ? (
+                  filterData.map((item, index) => {
+                    return <ProductCard key={index} data={item} />;
+                  })
+                ) : (
+                  <>
+                    <img src={sad} alt="" />
+
+                    <p>Nothing is in the box</p>
+                  </>
+                )}
               </div>
             </div>
           </div>

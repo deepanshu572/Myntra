@@ -1,13 +1,13 @@
 import React from 'react'
 
-const ProductHeading = () => {
+const ProductHeading = ({categoryName , itemNumbers}) => {
   return (
      <div className="product_detail_head_txt all_product_head">
         <p>
-          Home / <b> Clothings & Apparels </b>
+          Home / <b> {categoryName} </b>
         </p>
-        <h4>Clothings & Apparels
- <p> - 2836541 items</p>
+        <h4>
+ <p> - {itemNumbers} items</p>
  </h4>
       </div>
   )

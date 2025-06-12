@@ -18,7 +18,7 @@ export const getAsyncCategoryData = () => async (dispatch) => {
     const response = await axios.post(appAPI, formData);
     const data = response.data.category;
 
-    console.log("Fetched Products:", data);
+    // console.log("Fetched Products:", data);
     dispatch(getCategoryData(data));
   } catch (error) {
     console.error("Error fetching product data:", error);
