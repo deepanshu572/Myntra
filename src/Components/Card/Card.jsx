@@ -8,7 +8,7 @@ const Card = ({data}) => {
     const imgLink = "https://pos.kalamitcompany.com/api/images/";
 
   return (
-    <Link to={`AllProduct/${data.name}?Cid=0`} className='card_box'>
+    <Link to={`AllProduct/${data.name}?Cid=${data.id}`} className='card_box'>
        <div className="card_img_sec">
         <img src={imgLink + data.images} alt="" />
        </div>

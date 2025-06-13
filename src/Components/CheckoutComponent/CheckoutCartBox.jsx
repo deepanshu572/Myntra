@@ -8,6 +8,16 @@ const CheckoutCartBox = (item) => {
   var item = item.data;
   const discount = Math.round(((item.fprice - item.price) / item.fprice) * 100);
   const imgLink = "https://pos.kalamitcompany.com/api/images/";
+    
+  // const array = [
+  //   23
+  // ]
+  // for (let index = 0; index < array.value; index++) {
+  //   const element = array[index];
+  //   console.log(element);
+    
+    
+  // }
 
 
   return (
@@ -27,14 +37,19 @@ const CheckoutCartBox = (item) => {
                 </small>
                 <div className="cart_item_select">
                   <div className="select_box">
-                    <select name="" id="">
+                    
+                    <p>{item?.size}</p>
+                    {/* <select name="" id="">
                       <option value="XL">Size : XL</option>
                       <option value="L">Size : L</option>
                       <option value="M">Size : M</option>
                       <option value="S">Size : S</option>
-                    </select>
+                    </select> */}
                   </div>
                   <div className="select_box">
+                    {
+                    
+                    }
                     <select name="" id="">
                       <option value="1">Qty : 1</option>
                       <option value="2">Qty : 2</option>
