@@ -19,7 +19,7 @@ const NavPageIconSec = () => {
     
       const { cart } = useSelector((state) => state.CartReducer);
 
-   let CartData = cart.length || 0;
+   let CartData = cart?.length || 0;
    let wistlistData = 2;
 
     const iconData = [
