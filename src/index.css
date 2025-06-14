@@ -1235,7 +1235,7 @@ hr {
     color: #000;
     border-radius: 4px;
     background: #dcdcdc;
-    display: inline;
+    display: none;
     padding: 6px 10px !important;
 }
 .btn_filter button:nth-child(2) {
@@ -1348,6 +1348,7 @@ input[type=checkbox] {
     }
     .btn_filter {
     padding: 6px 0px;
+            margin-left: 10px;
     }
         .btn_filter button {
         font-size: 9px !important;
@@ -1429,8 +1430,8 @@ input[type=checkbox] {
     right: 17px;
 }
 .icon_data a:nth-child(1) svg{
-        /* height: 42px; */
-    width: 20px;
+             width: 16px;
+        height: 16px;
 }
 .nothing{
     
@@ -1454,7 +1455,7 @@ input[type=checkbox] {
         padding: 5px;
     }
 .label_holder label {
-    font-size: 12px;
+    font-size: 13px;
 }
 .label_holder img {
     width: 25px;
