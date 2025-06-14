@@ -1362,9 +1362,16 @@ input[type=checkbox] {
     padding: 10px;
     margin-bottom: 4rem;
 }
-    .wrapper_all_product_right  .product_card {
-    width: 42.5vw;
-}
+     .wrapper_all_product_right .product_card {
+        width: 27.3vw;
+    }
+    .wrapper_all_product_right{
+            padding: 10px 0 !important;
+                gap: 5px;
+    }
+   .wrapper_all_product_right .product_text{
+        padding: 10px 0;
+    }
 .product_card
  {
     width: 45%;
@@ -1491,4 +1498,8 @@ input[type=checkbox] {
     text-align: center;
     padding:16px 0;
 }
+    .wrapper_all_product_right.product_img {
+        height: 122px;
+
+    }
 }
