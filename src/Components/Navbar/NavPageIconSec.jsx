@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCartData } from "../../store/reducers/CartReducer";
 
+import { TiHomeOutline } from "react-icons/ti";
 
 
 
@@ -34,6 +35,13 @@ const NavPageIconSec = () => {
             name : "Wishlist",
             page: "wishlist",
            value  : wistlistData,
+
+        },
+        {
+            icon : <TiHomeOutline />,
+            name : "Home",
+            page: "/",
+           value  : "",
 
         },
         {

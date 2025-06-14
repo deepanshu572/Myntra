@@ -18,7 +18,7 @@ const App = () => {
       {isCartPage ? <CheckoutNav /> : <Navbar />}
 
       <Routes>
-        <Route index element={<HomePage />} />
+        <Route index path="/" element={<HomePage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="AllProduct/:name" element={<AllProduct />} />
         <Route path="checkout/cart" element={<Cart />} />

@@ -1374,11 +1374,12 @@ input[type=checkbox] {
     width: 95%;
     gap: 16px;
 }
-.search_bar{
-           display: flex
+    .search_bar {
+        display: flex
 ;
         width: 100%;
-}
+        /* margin-right: 61px; */
+    }
  .product_img {
     height: 190px;
 }
@@ -1386,7 +1387,7 @@ input[type=checkbox] {
     margin: 0;
 }
 .search_bar>input {
-    display: none;
+    /* display: none; */
 }
 .navbar{
     justify-content: space-between;
@@ -1408,10 +1409,17 @@ input[type=checkbox] {
 .footer{
     display: none;
 }
-.navbar_right{
-    padding: 0;
-    width: auto;
-    justify-content: unset;
+.navbar_right {
+               padding: 0;
+        width: 69%;
+        justify-content: unset;
+        position: relative;
+        left: -13%;
+}
+.icon_data a:nth-child(1){
+        position: fixed;
+    top: 2%;
+    right: 17px;
 }
 .icon_data {
     position: fixed;
@@ -1437,11 +1445,17 @@ input[type=checkbox] {
     left: 0;
     /* display: flex
 ; */
-    padding: 10px;
+    /* padding: 10px; */
 }
 .btn_calc_amt button{
     margin-top: 0;
         padding: 17px;
+}
+.product_detail_head_txt{
+    display: none;
+}
+.price_card_detail_page{
+    margin-bottom: 4rem;
 }
 .product_sec_home h3 {
     font-size: 2rem;
