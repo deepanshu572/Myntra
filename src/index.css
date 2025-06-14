@@ -1421,6 +1421,20 @@ input[type=checkbox] {
     top: 2%;
     right: 17px;
 }
+.icon_data a:nth-child(1) svg{
+        height: 42px;
+    width: 20px;
+}
+.hold svg{
+        height: 23px;
+    width: 20px;
+}
+.icon_data>a{
+    gap: 0;
+}
+.icon_data a:nth-child(1) p{
+    display: none;
+}
 .icon_data {
     position: fixed;
     background: #fff;
