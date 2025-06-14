@@ -1502,4 +1502,14 @@ input[type=checkbox] {
         height: 122px;
 
     }
+   .wrapper_all_product_right .product_text h4
+ {
+    font-size: 12px;
+ }
+ .wrapper_all_product_right .product_text h5 {
+    font-size: 12px;
+ }
+.wrapper_all_product_right  .price_card span
+ {
+    font-size: 11px;}
 }
