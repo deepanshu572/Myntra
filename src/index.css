@@ -1281,13 +1281,14 @@ input[type=checkbox] {
 }
  
 .label_holder {
-    padding: 2px 0px;
+    padding: 6px 0px;
 
 }
 .filter_first,
 .hd_padding {
     padding: 10px  12px;
 }
+
 .wrapper_all_product_left {
     width: 160px;
 
@@ -1327,15 +1328,125 @@ input[type=checkbox] {
 
 
 
-@media screen and (max-width: 400px) {
-    .product_card {
+@media screen and (max-width: 500px) {
+    .wrapper_all_product_main_sec {
+
+    margin-bottom: 4rem;
+}
+    .product_wrapper {
+    display: flex
+;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+    gap: 12px;
+    justify-content: center;
+}
+    .filter_first, .hd_padding {
+        padding: 10px 4px;
+    }
+    .btn_filter {
+    padding: 6px 0px;
+    }
+        .btn_filter button {
+        font-size: 9px !important;
+    }
+    .btn_filter button:nth-child(1){
+        font-size: 9px !important;
+    }
+.wrapper_all_product_right {
+    justify-content: center;
+}
+.cart_calculation_sec {
+    padding: 10px;
+    margin-bottom: 4rem;
+}
+    .wrapper_all_product_right  .product_card {
     width: 42.5vw;
 }
+.product_card
+ {
+    width: 45%;
+ }
+
  .product_wrapper {
-    width: 90%;
+    width: 95%;
     gap: 16px;
+}
+.search_bar{
+           display: flex
+;
+        width: 100%;
 }
  .product_img {
     height: 190px;
+}
+.search_bar svg {
+    margin: 0;
+}
+.search_bar>input {
+    display: none;
+}
+.navbar{
+    justify-content: space-between;
+}
+.banner_img_bootom img {
+    padding: 0px;
+    margin-bottom: 4rem;
+}
+    .hero_sec {
+        width: 100%;
+    }
+    .card_box {
+    width: 45%;
+    }
+    .category_div {
+    gap: 13px;
+    width: 95%;
+    }
+.footer{
+    display: none;
+}
+.navbar_right{
+    padding: 0;
+    width: auto;
+    justify-content: unset;
+}
+.icon_data {
+    position: fixed;
+    background: #fff;
+    padding: 10px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    justify-content: space-around;
+    box-shadow: 4px 4px 12px 0 rgba(0, 0, 0, .05);
+}
+.head_category_heading img {
+    width: 100%;
+    margin: 16px 0;
+}.cart_calculation_sec {
+    margin-bottom: 4rem;
+}
+.btn_calc_amt{
+        position: fixed;
+    bottom: 0;
+    background: #fff;
+    width: 100%;
+    left: 0;
+    /* display: flex
+; */
+    padding: 10px;
+}
+.btn_calc_amt button{
+    margin-top: 0;
+        padding: 17px;
+}
+.product_sec_home h3 {
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+    padding:16px 0;
 }
 }

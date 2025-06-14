@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { useEffect } from "react";
 
 const FilterLeft = ({ data, prd, catId, brandSelection }) => {
   const [SubCategory, setSubCategory] = useState();
@@ -22,6 +23,17 @@ const FilterLeft = ({ data, prd, catId, brandSelection }) => {
       })
     );
   };
+  const RenderData = ()=>{
+     setSubCategory(
+      data.filter((item) => {
+        return item.parent_id == catId;
+      })
+    );
+  }
+  useEffect(() => {
+    RenderData();
+  }, [])
+  
   // const SelectedBrandData = () => {
   //   const selected = Array.from(
   //     document.querySelectorAll('input[name="SubCat"]:checked')
