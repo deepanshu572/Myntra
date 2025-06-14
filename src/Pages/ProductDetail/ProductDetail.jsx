@@ -80,6 +80,7 @@ const addToCart = (product) => {
     return;
   }
 
+  alert("Product Added sucessfully !")
   // Add new product to cart
   existingCart.push(updatedProduct);
   localStorage.setItem("cartItems", JSON.stringify(existingCart));
@@ -89,6 +90,8 @@ const addToCart = (product) => {
 };
 
   const imgLink = "https://pos.kalamitcompany.com/api/images/";
+
+  
 
   return (
     <>
@@ -124,7 +127,7 @@ const addToCart = (product) => {
                 MRP <del>₹ {Data?.fprice}</del>
               </span>
               <span className="svg_data_detail">
-                <p> (49% OFF) </p>
+                <p> { Math.round(((Data?.fprice - Data?.price) / Data?.fprice) * 100) || 0} Off  </p>
               </span>
             </div>
             <p className="green">inclusive of all taxes</p>

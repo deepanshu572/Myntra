@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import CheckoutCartBox from "../../Components/CheckoutComponent/CheckoutCartBox";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../store/reducers/CartReducer";
+import sad from "../../assets/img/sad.gif";
+import { Link } from "react-router";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,10 @@ const Cart = () => {
   console.log(cart);
 
   return (
-    <div className="cart_page mt_custom">
+    <>
+    {
+      cart ? (
+        <div className="cart_page mt_custom">
       <div className="cart_page_left">
         <div className="cart_page_top_one">pending....</div>
         <div className="cart_page_top_two">
@@ -159,7 +164,7 @@ const Cart = () => {
             </div>
           </div>
           <div className="cart_item_page_three_box">
-            {cart.map((item, index) => {
+          {  cart.map((item, index) => {
               return <CheckoutCartBox key={index} data={item} />;
             })}
           </div>
@@ -259,6 +264,18 @@ const Cart = () => {
         </div>
       </div>
     </div>
+      ) : (
+        <div class="nothing_in_box">
+                            <img src={sad} alt="Nothing found" />
+        
+      <h3>Nothing is in cart</h3>
+      <Link to={"/"}>
+      <button>Keep browsing</button>
+      </Link>
+      </div>
+      )
+    }
+    </>
   );
 };
 
