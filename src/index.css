@@ -1363,7 +1363,7 @@ input[type=checkbox] {
     margin-bottom: 4rem;
 }
      .wrapper_all_product_right .product_card {
-        width: 27.3vw;
+        width: 31.3vw;
     }
     .wrapper_all_product_right{
             padding: 10px 0 !important;
@@ -1449,12 +1449,22 @@ input[type=checkbox] {
 .label_holder {
         padding: 4px 7px;
 }
+    .wrapper_all_product_left {
+        width: 147px;
+        padding: 5px;
+    }
 .label_holder label {
-    font-size: 10px;
+    font-size: 12px;
 }
 .label_holder img {
     width: 25px;
     height: 25px;
+}
+.wrapper_all_product_right::-webkit-scrollbar{
+    display: none;
+}
+.all_product{
+    width: 100%;
 }
 .icon_data {
     position: fixed;
