@@ -1498,7 +1498,7 @@ input[type=checkbox] {
     text-align: center;
     padding:16px 0;
 }
-    .wrapper_all_product_right.product_img {
+    .wrapper_all_product_right .product_img {
         height: 122px;
 
     }
