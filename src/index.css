@@ -1422,8 +1422,12 @@ input[type=checkbox] {
     right: 17px;
 }
 .icon_data a:nth-child(1) svg{
-        height: 42px;
+        /* height: 42px; */
     width: 20px;
+}
+.nothing{
+    
+    justify-content: start !important;
 }
 .hold svg{
         height: 23px;
@@ -1433,7 +1437,17 @@ input[type=checkbox] {
     gap: 0;
 }
 .icon_data a:nth-child(1) p{
-    display: none;
+    /* display: none; */
+}
+.label_holder {
+        padding: 9px 7px;
+}
+.label_holder label {
+    font-size: 16px;
+}
+.label_holder img {
+    width: 30px;
+    height: 30px;
 }
 .icon_data {
     position: fixed;
