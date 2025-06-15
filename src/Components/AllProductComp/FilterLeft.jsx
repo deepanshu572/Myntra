@@ -6,6 +6,8 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useEffect } from "react";
+import { FiBox } from "react-icons/fi";
+
 
 const FilterLeft = ({ data, prd, catId, brandSelection }) => {
   const [SubCategory, setSubCategory] = useState();
@@ -53,7 +55,13 @@ const FilterLeft = ({ data, prd, catId, brandSelection }) => {
     <div className="filter_left">
       <div className="filter_first">
         <h4>🛍️ Categories</h4>
+      <Link to={`/AllProduct/All?Cid=0`}  className={`label_holder all ${
+                catId == 0 ? "cat_active" : ""
+              }`} >
 
+      <FiBox />
+
+      All</Link>
         {FilterMainCat.map((item, index) => {
           return (
             <Link

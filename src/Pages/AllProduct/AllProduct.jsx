@@ -98,8 +98,17 @@ const AllProduct = () => {
     if (!selectCategory || products.length === 0) return;
 
     SetPrdLoading(true);
-    const filtered = products.filter((item) => item.cat_id === selectCategory);
+    if(selectCategory == 0){
+            console.log(selectCategory);
+
+      SetFilterData(products);
+      
+    }
+    else{
+ const filtered = products.filter((item) => item.cat_id === selectCategory);
     SetFilterData(filtered);
+    }
+   
 
     SetPrdLoading(false);
   }, [selectCategory, products]);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiHeart } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { SlUser } from "react-icons/sl";
@@ -6,6 +6,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCartData } from "../../store/reducers/CartReducer";
+import { TbCategory } from "react-icons/tb";
 
 import { TiHomeOutline } from "react-icons/ti";
 
@@ -24,12 +25,21 @@ const NavPageIconSec = () => {
    let wistlistData = 2;
 
     const iconData = [
-        {
-            icon : <SlUser />,
-            name : "Profile",
-            page : "Profile",
-            
+         {
+            icon : <TiHomeOutline />,
+            name : "Home",
+            page: "/",
+           value  : "",
+
         },
+         {
+            icon : <TbCategory />,
+            name : "Category",
+            page: "/AllProduct/All?Cid=0",
+           value  : "",
+
+        },
+       
         {
             icon : <FaRegHeart />,
             name : "Wishlist",
@@ -37,29 +47,38 @@ const NavPageIconSec = () => {
            value  : wistlistData,
 
         },
-        {
-            icon : <TiHomeOutline />,
-            name : "Home",
-            page: "/",
-           value  : "",
-
-        },
+       
         {
             icon : <HiOutlineShoppingBag />,
             name : "Bag",
             page: "checkout/cart",
            value  :CartData || 0,
 
-        }
+        },
+         {
+            icon : <SlUser />,
+            name : "Profile",
+            page : "Profile",
+            
+        },
     ];
+
+    const [selectIndex, setselectIndex] = useState();
+
+    const HighLightFnc = (index)=>{
+        console.log('====================================');
+        console.log(index);
+        console.log('====================================');
+        setselectIndex(index)
+
+    }
   return (
     <div className='icon_data'>
     {
         iconData.map((item , index)=>{
             return(
-                <Link to={`${item.page}`} key={index} >
-                    {/* <img src={item.icon} alt="" /> */}
-                    <div className='hold'>{item.icon}
+                <Link to={`${item.page}`} key={index} onClick={()=>HighLightFnc(index)} >
+                    <div className={`hold ${selectIndex === index ? "activeIndex" : ""}`}>{item.icon}
                         {
                             item.value ? (<div className="num">{item.value}</div>) : ""
                         }</div>

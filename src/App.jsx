@@ -7,6 +7,9 @@ import AllProduct from "./Pages/AllProduct/AllProduct";
 import Cart from "./Pages/Cart/Cart";
 import { useLocation } from "react-router-dom";
 import CheckoutNav from "./Components/CheckoutComponent/CheckoutNav";
+import Search from "./Pages/Search/Search";
+import Wishlist from "./Pages/Wishlist/Wishlist";
+import Profile from "./Pages/Profile/Profile";
 
 const App = () => {
   const location = useLocation();
@@ -22,6 +25,9 @@ const App = () => {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="AllProduct/:name" element={<AllProduct />} />
         <Route path="checkout/cart" element={<Cart />} />
+        <Route path="Search/:query" element={<Search />} />
+        <Route path="Wishlist/" element={<Wishlist />} />
+        <Route path="Profile" element={<Profile />} />
       </Routes>
 
       <Footer />
