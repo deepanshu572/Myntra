@@ -5,10 +5,11 @@ import { SlUser } from "react-icons/sl";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCartData } from "../../store/reducers/CartReducer";
+import { getCartAccessData, getCartData } from "../../store/reducers/CartReducer";
 import { TbCategory } from "react-icons/tb";
 
 import { TiHomeOutline } from "react-icons/ti";
+import { getWishlistAccessData } from '../../store/reducers/WishlistReducer';
 
 
 
@@ -16,13 +17,18 @@ const NavPageIconSec = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-     dispatch(getCartData());
-    }, [])
+     dispatch(getCartAccessData());
+    }, [localStorage.getItem("cartItems")])
+    
+    useEffect(() => {
+     dispatch(getWishlistAccessData());
+    }, [localStorage.getItem("wishListItem")])
     
       const { cart } = useSelector((state) => state.CartReducer);
+      const { wishlist } = useSelector((state) => state.WishlistReducer);
 
    let CartData = cart?.length || 0;
-   let wistlistData = 2;
+   let wistlistData = wishlist?.length || 0;
 
     const iconData = [
          {

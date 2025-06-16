@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CheckoutCartBox from "../../Components/CheckoutComponent/CheckoutCartBox";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartData } from "../../store/reducers/CartReducer";
+import { getCartAccessData } from "../../store/reducers/CartReducer";
 import sad from "../../assets/img/sad.gif";
 import { Link } from "react-router";
 
@@ -9,7 +9,7 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCartData());
+    dispatch(getCartAccessData());
   }, []);
   const [Toggle, setToggle] = useState(false);
   const { cart } = useSelector((state) => state.CartReducer);

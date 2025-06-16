@@ -9,11 +9,30 @@ export const wishlistSlice = createSlice({
   initialState,
   reducers: {
     getWishlistData: (state, action) => {
-        state.wishlist = JSON.parse(localStorage.getItem("wishlistItems")) || [];
+      const data = action.payload.data;
+
+      const existingWishlist =
+        JSON.parse(localStorage.getItem("wishListItem")) || [];
+
+      const exists = existingWishlist.find((item) => item.id === data.id);
+
+      let updatedWishlist;
+
+      if (exists) {
+      updatedWishlist = existingWishlist.filter((item) => item.id !== data.id);
+      } else {
+        updatedWishlist = [...existingWishlist, { ...data, wishlist: true }];
+        console.log("Added to wishlist:", data.id);
+      }
+
+      localStorage.setItem("wishListItem", JSON.stringify(updatedWishlist));
+    },
+    getWishlistAccessData: (state, action) => {
+      state.wishlist = JSON.parse(localStorage.getItem("wishListItem")) || [];
     },
   },
 });
 
-export const { getWishlistData } = wishlistSlice.actions
+export const { getWishlistData, getWishlistAccessData } = wishlistSlice.actions;
 
 export default wishlistSlice.reducer;

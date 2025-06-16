@@ -27,7 +27,6 @@ const Profile = () => {
             <FiBox/> Order</Link>
             <Link to={"/"}>
             <CiLogout /> Logout</Link>
-            
             </div>
         </div>
     </div>

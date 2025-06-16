@@ -1482,6 +1482,9 @@ input[type=checkbox] {
 
 
 }
+.prd_wrap{
+    position: relative;
+}
 .profile_wrap {
     display: flex
 ;
