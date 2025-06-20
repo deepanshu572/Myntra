@@ -85,7 +85,7 @@ const NavPageIconSec = () => {
                         {
                             item.value ? (<div className="num">{item.value}</div>) : ""
                         }</div>
-                    <p>{item.name}</p>
+                    <p className={` ${selectIndex === index ? "activeIndex" : ""}`}>{item.name}</p>
                     
                 </Link>
             )

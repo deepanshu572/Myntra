@@ -1395,6 +1395,9 @@ input[type=checkbox] {
 .activeIndex svg{
     color: #ff3e6c;   
 }
+.activeIndex {
+    color: #ff3e6c;   
+}
 .no_prd p{
         text-align: center;
     font-size: 26px;
