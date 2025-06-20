@@ -1,24 +1,19 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { getDeleteData } from '../../store/reducers/CartReducer';
 
 const CheckoutCartBox = (item) => {
-
-  console.log('====================================');
-  console.log(item.data);
-  console.log('====================================');
   var item = item.data;
   const discount = Math.round(((item.fprice - item.price) / item.fprice) * 100);
   const imgLink = "https://pos.kalamitcompany.com/api/images/";
-    
-  // const array = [
-  //   23
-  // ]
-  // for (let index = 0; index < array.value; index++) {
-  //   const element = array[index];
-  //   console.log(element);
-    
-    
-  // }
 
+  const dispatch = useDispatch();
+
+  const deleteCartFnc = (data) =>{
+    dispatch(getDeleteData(data));
+
+
+  }
 
   return (
        <div className="cart_item_data">
@@ -126,11 +121,12 @@ const CheckoutCartBox = (item) => {
                   </div>
               </div>
               <div className="cross">
-                <svg
+                <svg 
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
                   viewBox="0 0 16 16"
+                  onClick={()=>deleteCartFnc(item)}
                   class="itemContainer-base-closeIcon"
                 >
                   <path

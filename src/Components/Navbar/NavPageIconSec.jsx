@@ -18,11 +18,8 @@ const NavPageIconSec = () => {
     const dispatch = useDispatch();
     useEffect(() => {
      dispatch(getCartAccessData());
-    }, [localStorage.getItem("cartItems")])
-    
-    useEffect(() => {
      dispatch(getWishlistAccessData());
-    }, [localStorage.getItem("wishListItem")])
+    }, [])
     
       const { cart } = useSelector((state) => state.CartReducer);
       const { wishlist } = useSelector((state) => state.WishlistReducer);

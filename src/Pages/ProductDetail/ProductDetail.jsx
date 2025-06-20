@@ -3,18 +3,26 @@ import { BsFillHandbagFill } from "react-icons/bs";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { getAsyncProductData } from "../../store/action/ProductAction";
-import { getCartData } from "../../store/reducers/CartReducer";
+import {
+  getCartAccessData,
+  getCartData,
+} from "../../store/reducers/CartReducer";
 import { useParams } from "react-router";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import Loader from "../../Components/Loader/Loader";
-import { getWishlistData } from "../../store/reducers/WishlistReducer";
+import {
+  getWishlistAccessData,
+  getWishlistData,
+} from "../../store/reducers/WishlistReducer";
 
 const ProductDetail = () => {
   const [loading, SetLoading] = useState(true);
   const [SelectedInp, setSelectedInp] = useState("");
   const [wishlistStatus, setwishlistStatus] = useState(false);
   const sizeArr = ["S", "M", "XL", "XXL"];
+  const [Liked, setLiked] = useState(false);
+
   const [Cart, setCart] = useState(false);
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.ProductReducer);
@@ -34,6 +42,8 @@ const ProductDetail = () => {
 
   const addToWishlist = (data) => {
     dispatch(getWishlistData({ data }));
+    dispatch(getWishlistAccessData());
+    setLiked(!Liked)
   };
 
   const addToCart = (product) => {
@@ -45,6 +55,7 @@ const ProductDetail = () => {
     }
 
     dispatch(getCartData({ product, selectedInput }));
+    dispatch(getCartAccessData());
   };
 
   const imgLink = "https://pos.kalamitcompany.com/api/images/";
@@ -142,13 +153,13 @@ const ProductDetail = () => {
 
                   <button
                     className={`btn btn2 ${
-                      wishlistStatus ? "liked" : "unliked"
+                      Liked ? "liked" : "unliked"
                     } `}
                     onClick={() => addToWishlist(Data)}
                   >
-                    {wishlistStatus ? <FaHeart /> : <IoIosHeartEmpty />}
+                    {Liked ? <FaHeart /> : <IoIosHeartEmpty />}
 
-                    {wishlistStatus ? "Wishlisted" : "Wishlist"}
+                    {Liked ? "Wishlisted" : "Wishlist"}
                   </button>
                 </div>
                 <div className="desc">

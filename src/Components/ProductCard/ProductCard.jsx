@@ -4,24 +4,30 @@ import { Link } from "react-router";
 import { RiHeart2Line } from "react-icons/ri";
 import { RiHeart2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
-import { getWishlistData } from "../../store/reducers/WishlistReducer";
+import { getWishlistAccessData, getWishlistData } from "../../store/reducers/WishlistReducer";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ data }) => {
-  // console.log(data);
+  console.log(data);
 
-  const [Liked, setLiked] = useState();
+  const [Liked, setLiked] = useState(data.wishlist);
   const imgLink = "https://pos.kalamitcompany.com/api/images/";
 
   const dispatch = useDispatch();
   const toggleWishlistFnc = (data) => {
     dispatch(getWishlistData({ data }));
+        dispatch(getWishlistAccessData())
+        if(Liked === true){
+          alert("Removed from wishlist 😞");
+        }
+        setLiked(!Liked)
+    
   };
 
 
-  useEffect(() => {
-    setLiked(data.wishlist);
-  }, [toggleWishlistFnc])
+  // useEffect(() => {
+  //   setLiked(data.wishlist);
+  // }, [toggleWishlistFnc])
   
 
   return (
