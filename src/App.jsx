@@ -10,10 +10,11 @@ import CheckoutNav from "./Components/CheckoutComponent/CheckoutNav";
 import Search from "./Pages/Search/Search";
 import Wishlist from "./Pages/Wishlist/Wishlist";
 import Profile from "./Pages/Profile/Profile";
+import Address from "./Pages/Address/Address";
 
 const App = () => {
   const location = useLocation();
-  const isCartPage = location.pathname.includes("/cart");
+  const isCartPage = location.pathname.includes("/cart") || location.pathname.includes("/Address");
   
 
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="Search/:query" element={<Search />} />
         <Route path="Wishlist/" element={<Wishlist />} />
         <Route path="Profile" element={<Profile />} />
+        <Route path="/Address" element={<Address />} />
       </Routes>
 
       <Footer />

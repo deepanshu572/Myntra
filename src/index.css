@@ -1524,6 +1524,27 @@ background-color: red;
     height: 100%;
     object-fit: cover;
 }
+.select_box{
+        display: flex
+;
+    align-items: center;
+    gap: 5px;
+}
+.select_box_middle{
+    width: 20px;
+    text-align: center;
+}
+.select_box button {
+    padding: 0px 6px;
+    border: 1px solid #ff3f71;
+    background: #f391aa26;
+    border-radius: 15px;
+}
+.activeDonation{
+  border: 1px solid #ff3f71 !important;
+         background: #f391aa26 !important;
+
+}
 @media screen and (max-width: 500px) {
     .search_data {
     width: 100%;

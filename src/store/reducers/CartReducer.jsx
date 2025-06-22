@@ -52,10 +52,56 @@ export const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(newData));
       state.cart = JSON.parse(localStorage.getItem("cartItems"));
     },
+    getIncrement: (state, action) => {
+      let incrementId = action.payload.id;
+      let incrementSize = action.payload.size;
+      let newCart = JSON.parse(localStorage.getItem("cartItems"));
+
+      const updatePrd = newCart.map((item) => {
+        if (item.id === incrementId && item.size === incrementSize) {
+          return {
+            ...item,
+            quantity: (item.quantity || 0) + 1,
+          };
+        }
+        return item;
+      });
+      localStorage.setItem("cartItems", JSON.stringify(updatePrd));
+      state.cart = updatePrd;
+    },
+    getDecrement: (state, action) => {
+      let decrementId = action.payload.id;
+      let decrementSize = action.payload.size;
+      let newCart = JSON.parse(localStorage.getItem("cartItems"));
+      const updatePrd = newCart.map((item) => {
+        if (item.id === decrementId && item.size === decrementSize) {
+          if (item.quantity == 1 || item.quantity <= 0) {
+            alert("Remove from cart ☹")
+             return null;
+          } else {
+            return {
+              ...item,
+              quantity: item.quantity - 1,
+            };
+          }
+        }
+        return item;
+      }).filter(Boolean);
+      localStorage.setItem("cartItems", JSON.stringify(updatePrd));
+      state.cart = updatePrd;
+      console.log("====================================");
+      console.log(state.cart);
+      console.log("====================================");
+    },
   },
 });
 
-export const { getCartData, getCartAccessData, getDeleteData } =
-  cartSlice.actions;
+export const {
+  getCartData,
+  getCartAccessData,
+  getDeleteData,
+  getIncrement,
+  getDecrement,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

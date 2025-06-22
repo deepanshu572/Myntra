@@ -10,22 +10,75 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getCartAccessData());
+    localStorage.setItem("donation", false);
   }, []);
+
+
+  const [donationIndex, setDonationIndex] = useState();
+  const [donationAmt, setDonationAmt] = useState();
+  const [donationStatus, setDonationStatus] = useState(false);
   const [Toggle, setToggle] = useState(false);
   const { cart } = useSelector((state) => state.CartReducer);
 
-  console.log(cart);
-  var price =0 ;
-  var Fprice =0 ;
-  var DiscountAmount =0 ;
-   cart.forEach((item) => {
-    return( price = Number(item.price)+price ,
-     Fprice = Number(item.fprice)+Fprice ,
-     DiscountAmount =Fprice -price
-
-   )
+  var price = 0;
+  var Fprice = 0;
+  var DiscountAmount = 0;
+  cart.forEach((item) => {
+    price += Number(item.price) * item.quantity;
+    Fprice += Number(item.fprice) * item.quantity;
   });
-  console.log(price , Fprice, DiscountAmount);
+
+  DiscountAmount = Fprice - price;
+  console.log(price, Fprice);
+
+  const amtArr = [
+    {
+      id: 1,
+      amt: "10",
+    },
+    {
+      id: 2,
+      amt: "20",
+    },
+    {
+      id: 3,
+      amt: "30",
+    },
+    {
+      id: 4,
+      amt: "40",
+    },
+  ];
+
+  const handleChangeInp = (e) => {
+    if (e.target.checked) {
+      alert("checked");
+      if (donationIndex === undefined) {
+        setDonationIndex(0);
+        setDonationAmt(10);
+
+        localStorage.setItem("donation", true);
+      }
+    } else {
+      alert("abe pata nhi be");
+      localStorage.setItem("donation", false);
+
+      setDonationIndex();
+    }
+  };
+
+  const handleDonationFnc = (index, amt) => {
+    localStorage.setItem("donation", true);
+    document.getElementById("donate").checked = true;
+    setDonationAmt(amt);
+    console.log(index);
+    setDonationIndex(index);
+  };
+  useEffect(() => {
+    setDonationStatus(localStorage.getItem("donation"))
+  }, [handleChangeInp, handleDonationFnc]);
+  console.log(donationStatus);
+  
 
   return (
     <>
@@ -221,14 +274,27 @@ const Cart = () => {
               <div className="cart_page_donation">
                 <h5>Support transformative social work in India</h5>
                 <div className="donation_inp">
-                  <input type="checkbox" name="" id="" />
-                  <label htmlFor="">Donate and make a difference</label>
+                  <input
+                    type="checkbox"
+                    name="donates"
+                    id="donate"
+                    onChange={handleChangeInp}
+                  />
+                  <label htmlFor="donate">Donate and make a difference</label>
                 </div>
                 <div className="btn_data">
-                  <button>₹10</button>
-                  <button>₹20</button>
-                  <button>₹30</button>
-                  <button>₹50</button>
+                  {amtArr.map((item, index) => {
+                    return (
+                      <button
+                        className={` ${
+                          index == donationIndex ? "activeDonation" : ""
+                        } `}
+                        onClick={() => handleDonationFnc(index, item.amt)}
+                      >
+                        ₹{item?.amt}
+                      </button>
+                    );
+                  })}
                 </div>
                 {/* <div className="know">
                     Know More
@@ -251,10 +317,15 @@ const Cart = () => {
                   <h4>Coupon Discount</h4>
                   <p class="theme">Apply Coupon</p>
                 </div>
-                <div className="calc_price donation_mrp">
-                  <h4>Social Work Donation</h4>
-                  <p>₹10</p>
-                </div>
+                {donationStatus === "true" ? (
+                  <div className="calc_price donation_mrp">
+                    <h4>Social Work Donation</h4>
+                    <p>₹ {donationAmt}</p>
+                  </div>
+                ) : (
+                  ""
+                )}
+
                 <div className="calc_price platform_mrp green">
                   <h4>Platform Fee</h4>
                   <p>Free</p>
@@ -267,10 +338,10 @@ const Cart = () => {
 
                 <div className="calc_price total_Calc">
                   <h4>Total Amount</h4>
-                  <p>₹{price}</p>
+                  <p>₹{donationStatus === "true"  ? (Number(donationAmt) + price ) :(price)}</p>
                 </div>
                 <div className="btn_calc_amt">
-                  <button>Place order</button>
+                 <Link to={"/Address"}> <button>Place order</button> </Link>
                 </div>
               </div>
             </div>
