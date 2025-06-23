@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import CheckoutCartBox from "../../Components/CheckoutComponent/CheckoutCartBox";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartAccessData } from "../../store/reducers/CartReducer";
+import {
+  getCartAccessData,
+  getDeleteAllData,
+} from "../../store/reducers/CartReducer";
 import sad from "../../assets/img/sad.gif";
 import { Link } from "react-router";
+import CalculationPart from "../../Components/CheckoutComponent/CalculationPart";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -13,23 +17,11 @@ const Cart = () => {
     localStorage.setItem("donation", false);
   }, []);
 
-
   const [donationIndex, setDonationIndex] = useState();
   const [donationAmt, setDonationAmt] = useState();
   const [donationStatus, setDonationStatus] = useState(false);
   const [Toggle, setToggle] = useState(false);
   const { cart } = useSelector((state) => state.CartReducer);
-
-  var price = 0;
-  var Fprice = 0;
-  var DiscountAmount = 0;
-  cart.forEach((item) => {
-    price += Number(item.price) * item.quantity;
-    Fprice += Number(item.fprice) * item.quantity;
-  });
-
-  DiscountAmount = Fprice - price;
-  console.log(price, Fprice);
 
   const amtArr = [
     {
@@ -75,10 +67,9 @@ const Cart = () => {
     setDonationIndex(index);
   };
   useEffect(() => {
-    setDonationStatus(localStorage.getItem("donation"))
+    setDonationStatus(localStorage.getItem("donation"));
   }, [handleChangeInp, handleDonationFnc]);
   console.log(donationStatus);
-  
 
   return (
     <>
@@ -223,9 +214,11 @@ const Cart = () => {
             </div>
             <div className="cart_page_top_three">
               <div className="cart_page_top_three_head">
-                <h4>5 selected item</h4>
+                <h4>Your items</h4>
                 <div className="cart_item_three">
-                  <p>remove</p>
+                  <button onClick={() => dispatch(getDeleteAllData())}>
+                    Clear Cart
+                  </button>
                 </div>
               </div>
               <div className="cart_item_page_three_box">
@@ -301,7 +294,12 @@ const Cart = () => {
                 </div> */}
                 {/* <hr /> */}
               </div>
-              <div className="cart_calculation_sec">
+              <CalculationPart
+                cart={cart}
+                donationStatus={donationStatus}
+                donationAmt={donationAmt}
+              />
+              {/* <div className="cart_calculation_sec">
                 <div className="calc_head">
                   <h3>PRICE DETAILS (2 items)</h3>
                 </div>
@@ -338,12 +336,20 @@ const Cart = () => {
 
                 <div className="calc_price total_Calc">
                   <h4>Total Amount</h4>
-                  <p>₹{donationStatus === "true"  ? (Number(donationAmt) + price ) :(price)}</p>
+                  <p>
+                    ₹
+                    {donationStatus === "true"
+                      ? Number(donationAmt) + price
+                      : price}
+                  </p>
                 </div>
                 <div className="btn_calc_amt">
-                 <Link to={"/Address"}> <button>Place order</button> </Link>
+                  <Link to={"/Address"}>
+                    {" "}
+                    <button>Place order</button>{" "}
+                  </Link>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
