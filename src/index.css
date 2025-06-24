@@ -2047,6 +2047,9 @@ background-color: red;
     display: none;
 }
 @media screen and (max-width: 500px) {
+    .Address  > div{
+        width: 95%;
+    }
     .search_data {
         width: 100%;
         padding: 0;
