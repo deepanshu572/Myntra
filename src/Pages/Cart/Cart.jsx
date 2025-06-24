@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckoutCartBox from "../../Components/CheckoutComponent/CheckoutCartBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,6 +8,8 @@ import {
 import sad from "../../assets/img/sad.gif";
 import { Link } from "react-router";
 import CalculationPart from "../../Components/CheckoutComponent/CalculationPart";
+import { RxCross2 } from "react-icons/rx";
+import AddressBox from "../../Components/Address/AddressBox";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,11 @@ const Cart = () => {
   const [donationAmt, setDonationAmt] = useState();
   const [donationStatus, setDonationStatus] = useState(false);
   const [Toggle, setToggle] = useState(false);
+  const [modal, setmodal] = useState(false);
+
+  const [Address, setAddress] = useState(
+    JSON.parse(localStorage.getItem("Address")) || []
+  );
   const { cart } = useSelector((state) => state.CartReducer);
 
   const amtArr = [
@@ -76,7 +83,26 @@ const Cart = () => {
       {cart.length > 0 ? (
         <div className="cart_page mt_custom">
           <div className="cart_page_left">
-            <div className="cart_page_top_one">pending....</div>
+            <div className="cart_page_top_one">
+              {
+                Address?.length > 0 ? ( <div className="cart_detail_left_top">
+                <h4>
+                  Deliver to : <b>Form , 834009</b>
+                </h4>
+                <p>Dr colony Rims J block , bariatu, Ranchi</p>
+              </div>): (
+                <h4>Add Your Address</h4>
+              )
+              }
+             
+              <div className="cart_detail_right_top">
+                <button onClick={() => setmodal(true)}>
+                  {
+                    Address?.length > 0 ? "Change Address" : "Add Address"
+                  }
+                  </button>
+              </div>
+            </div>
             <div className="cart_page_top_two">
               <div className="head_cart_page_two">
                 <svg
@@ -289,67 +315,12 @@ const Cart = () => {
                     );
                   })}
                 </div>
-                {/* <div className="know">
-                    Know More
-                </div> */}
-                {/* <hr /> */}
               </div>
               <CalculationPart
                 cart={cart}
                 donationStatus={donationStatus}
                 donationAmt={donationAmt}
               />
-              {/* <div className="cart_calculation_sec">
-                <div className="calc_head">
-                  <h3>PRICE DETAILS (2 items)</h3>
-                </div>
-                <div className="calc_price mrp">
-                  <h4>Total MRP</h4>
-                  <p>₹ {Fprice}</p>
-                </div>
-                <div className="calc_price disc_mrp green">
-                  <h4>Discount on MRP</h4>
-                  <p>-₹ {DiscountAmount}</p>
-                </div>
-                <div className="calc_price coupon_mrp">
-                  <h4>Coupon Discount</h4>
-                  <p class="theme">Apply Coupon</p>
-                </div>
-                {donationStatus === "true" ? (
-                  <div className="calc_price donation_mrp">
-                    <h4>Social Work Donation</h4>
-                    <p>₹ {donationAmt}</p>
-                  </div>
-                ) : (
-                  ""
-                )}
-
-                <div className="calc_price platform_mrp green">
-                  <h4>Platform Fee</h4>
-                  <p>Free</p>
-                </div>
-                <div className="calc_price shipping_mrp green">
-                  <h4>Shipping Fee</h4>
-                  <p>Free</p>
-                </div>
-                <small>Free shipping for you</small>
-
-                <div className="calc_price total_Calc">
-                  <h4>Total Amount</h4>
-                  <p>
-                    ₹
-                    {donationStatus === "true"
-                      ? Number(donationAmt) + price
-                      : price}
-                  </p>
-                </div>
-                <div className="btn_calc_amt">
-                  <Link to={"/Address"}>
-                    {" "}
-                    <button>Place order</button>{" "}
-                  </Link>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
@@ -362,6 +333,38 @@ const Cart = () => {
             <button>Keep browsing</button>
           </Link>
         </div>
+      )}
+
+      {modal ? (
+        <div className="wrapper_address_form" >
+          <div className="form_address">
+            <div className="select_form_Sec">
+              <h3>Select Address</h3>
+
+              <RxCross2 onClick={() => setmodal(false)} />
+            </div>
+            {Address?.length > 0 ? (
+              <React.Fragment>
+                <div className="wrapper_data">
+                  <AddressBox
+                    Address={Address}
+                    setmodal={setmodal}
+                    setAddress={setAddress}
+                  />
+                </div>
+                                  <div className="btn_save">Save</div>
+
+              </React.Fragment>
+            ) : (
+              <div className="nothingAddress">
+                <img src={sad} alt="" />
+                <Link to={"/Address"}>+Add Address</Link>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        ""
       )}
     </>
   );
