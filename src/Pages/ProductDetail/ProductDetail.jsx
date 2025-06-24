@@ -34,11 +34,11 @@ const ProductDetail = () => {
   const Data = FilteredData[0];
 
   useEffect(() => {
-   const time =  setTimeout(() => {
+   setTimeout(() => {
       dispatch(getAsyncProductData());
       SetLoading(false);
     }, 800);
-    return clearTimeout(time)
+    // return clearTimeout(time)
   }, []);
 
   const addToWishlist = (data) => {
