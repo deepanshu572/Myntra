@@ -4,8 +4,12 @@ import { Link } from "react-router";
 import { RiHeart2Line } from "react-icons/ri";
 import { RiHeart2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
-import { getWishlistAccessData, getWishlistData } from "../../store/reducers/WishlistReducer";
+import {
+  getWishlistAccessData,
+  getWishlistData,
+} from "../../store/reducers/WishlistReducer";
 import { useDispatch } from "react-redux";
+import { getPrdData } from "../../store/reducers/ProductReducer";
 
 const ProductCard = ({ data }) => {
   console.log(data);
@@ -16,24 +20,14 @@ const ProductCard = ({ data }) => {
   const dispatch = useDispatch();
   const toggleWishlistFnc = (data) => {
     dispatch(getWishlistData({ data }));
-        dispatch(getWishlistAccessData())
-        if(Liked === true){
-          alert("Removed from wishlist 😞");
-        }
-        setLiked(!Liked)
-    
+    dispatch(getWishlistAccessData());
+    dispatch(getPrdData());
   };
-
-
-  // useEffect(() => {
-  //   setLiked(data.wishlist);
-  // }, [toggleWishlistFnc])
-  
 
   return (
     <div className="prd_wrap product_card">
       <div className="svg_create">
-        {Liked ? (
+        {data.wishlist ? (
           <RiHeart2Fill
             onClick={() => toggleWishlistFnc(data)}
             className="wishlist_active"

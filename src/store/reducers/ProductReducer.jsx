@@ -9,11 +9,19 @@ export const ProductSlice = createSlice({
   initialState,
   reducers: {
     getProductData: (state, action) => {
-        state.products = action.payload;        
+      const updatedPrd = action.payload.map((item) => ({
+        ...item,
+        wishlist: false,
+      }));
+
+      localStorage.setItem("AllPrd", JSON.stringify(updatedPrd));
+    },
+    getPrdData: (state, action) => {
+      state.products = JSON.parse(localStorage.getItem("AllPrd"));
     },
   },
 });
 
-export const { getProductData } = ProductSlice.actions
+export const { getProductData, getPrdData } = ProductSlice.actions;
 
 export default ProductSlice.reducer;

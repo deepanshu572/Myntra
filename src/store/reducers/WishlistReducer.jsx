@@ -10,25 +10,21 @@ export const wishlistSlice = createSlice({
   reducers: {
     getWishlistData: (state, action) => {
       const data = action.payload.data;
+      const existingWishlist = JSON.parse(localStorage.getItem("AllPrd")) || [];
 
-      const existingWishlist =
-        JSON.parse(localStorage.getItem("wishListItem")) || [];
+      const updatedWishlist = existingWishlist.map((item) => {
+        if (item.id === data.id) {
+          return { ...item, wishlist: !item.wishlist };
+        }
+        return item;
+      });
 
-      const exists = existingWishlist.find((item) => item.id === data.id);
+      localStorage.setItem("AllPrd", JSON.stringify(updatedWishlist));
 
-      let updatedWishlist;
-
-      if (exists) {
-      updatedWishlist = existingWishlist.filter((item) => item.id !== data.id);
-      } else {
-        updatedWishlist = [...existingWishlist, { ...data, wishlist: true }];
-        console.log("Added to wishlist:", data.id);
-      }
-
-      localStorage.setItem("wishListItem", JSON.stringify(updatedWishlist));
     },
     getWishlistAccessData: (state, action) => {
-      state.wishlist = JSON.parse(localStorage.getItem("wishListItem")) || [];
+      const wishlist =JSON.parse(localStorage.getItem("AllPrd")) || [];
+      state.wishlist =  wishlist.filter((item)=>{ return item.wishlist === true})
     },
   },
 });
