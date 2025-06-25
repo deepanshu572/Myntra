@@ -11,11 +11,14 @@ import Search from "./Pages/Search/Search";
 import Wishlist from "./Pages/Wishlist/Wishlist";
 import Profile from "./Pages/Profile/Profile";
 import Address from "./Pages/Address/Address";
+import Payment from "./Pages/Payment/Payment";
 
 const App = () => {
   const location = useLocation();
-  const isCartPage = location.pathname.includes("/cart") || location.pathname.includes("/Address");
-  
+  const isCartPage =
+    location.pathname.includes("/cart") ||
+    location.pathname.includes("/Address") ||
+    location.pathname.includes("/Payment");
 
   return (
     <>
@@ -29,7 +32,8 @@ const App = () => {
         <Route path="Search/:query" element={<Search />} />
         <Route path="Wishlist/" element={<Wishlist />} />
         <Route path="Profile" element={<Profile />} />
-        <Route path="/Address" element={<Address />} />
+        <Route path="checkout/Address" element={<Address />} />
+        <Route path="checkout/Payment" element={<Payment />} />
       </Routes>
 
       <Footer />
@@ -38,11 +42,6 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 

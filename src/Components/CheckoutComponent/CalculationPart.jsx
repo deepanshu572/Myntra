@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 
-const CalculationPart = ({ cart, donationStatus, donationAmt, sts }) => {
+const CalculationPart = ({ cart, donationStatus, donationAmt, sts , render }) => {
   var price = 0;
   var Fprice = 0;
   var DiscountAmount = 0;
@@ -62,7 +62,7 @@ const CalculationPart = ({ cart, donationStatus, donationAmt, sts }) => {
         </p>
       </div>
       <div className="btn_calc_amt">
-        <Link to={"/Address"}>
+        <Link to={`/checkout/${render}`}>
           {" "}
           <button>Place order</button>{" "}
         </Link>
