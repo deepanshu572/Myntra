@@ -8,9 +8,9 @@ import Stack from "@mui/material/Stack";
 import { useEffect } from "react";
 import { FiBox } from "react-icons/fi";
 
-
-const FilterLeft = ({ data, prd, catId, brandSelection }) => {
+const FilterLeft = ({ data, prd, catId, brandSelection , priceSelection }) => {
   const [SubCategory, setSubCategory] = useState();
+  const [value, setValue] = useState(1000);
 
   let FilterMainCat = data.filter((e) => {
     return e.parent_id == 0;
@@ -25,43 +25,41 @@ const FilterLeft = ({ data, prd, catId, brandSelection }) => {
       })
     );
   };
-  const RenderData = ()=>{
-     setSubCategory(
+  const RenderData = () => {
+    setSubCategory(
       data.filter((item) => {
         return item.parent_id == catId;
       })
     );
-  }
+  };
   useEffect(() => {
     RenderData();
-  }, [])
-  
-  // const SelectedBrandData = () => {
-  //   const selected = Array.from(
-  //     document.querySelectorAll('input[name="SubCat"]:checked')
-  //   ).map((input) => input.value);
-  //   brandSelection(selected);
-  //   console.log(selected);
-    
-  // };
-   const SelectedBrandData = () => {
-    const selected = Array.from(document.querySelectorAll('input[name="SubCat"]:checked'))
-      .map((input) => input.id);
+  }, []);
+
+  const SelectedBrandData = () => {
+    const selected = Array.from(
+      document.querySelectorAll('input[name="SubCat"]:checked')
+    ).map((input) => input.id);
     const str = selected.join(",");
-    brandSelection(str); // send comma-separated string
+    brandSelection(str);
+  };
+  const handlePriceFnc = (e) => {
+    setValue(e.target.value)
+    console.log(e.target.value);
+    priceSelection(e.target.value)
   };
 
   return (
     <div className="filter_left">
       <div className="filter_first">
         <h4>🛍️ Categories</h4>
-      <Link to={`/AllProduct/All?Cid=0`}  className={`label_holder all ${
-                catId == 0 ? "cat_active" : ""
-              }`} >
-
-      <FiBox />
-
-      All</Link>
+        <Link
+          to={`/AllProduct/All?Cid=0`}
+          className={`label_holder all ${catId == 0 ? "cat_active" : ""}`}
+        >
+          <FiBox />
+          All
+        </Link>
         {FilterMainCat.map((item, index) => {
           return (
             <Link
@@ -137,7 +135,10 @@ const FilterLeft = ({ data, prd, catId, brandSelection }) => {
         </div>
         <Box sx={{ width: "100%" }}>
           <Slider
-            defaultValue={40}
+            min={1000}
+            max={2000}
+            value={value}
+            onChange={handlePriceFnc}
             aria-label="Default"
             valueLabelDisplay="auto"
           />

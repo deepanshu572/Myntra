@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BsFillHandbagFill } from "react-icons/bs";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { getAsyncProductData } from "../../store/action/ProductAction";
+// import { getAsyncProductData } from "../../store/action/ProductAction";
 import {
   getCartAccessData,
   getCartData,
@@ -15,9 +15,9 @@ import {
   getWishlistAccessData,
   getWishlistData,
 } from "../../store/reducers/WishlistReducer";
+import { getPrdData, setLoading } from "../../store/reducers/ProductReducer";
 
 const ProductDetail = () => {
-  const [loading, SetLoading] = useState(true);
   const [SelectedInp, setSelectedInp] = useState("");
   const [wishlistStatus, setwishlistStatus] = useState(false);
   const sizeArr = ["S", "M", "XL", "XXL"];
@@ -25,7 +25,7 @@ const ProductDetail = () => {
 
   const [Cart, setCart] = useState(false);
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.ProductReducer);
+  const { products, loading } = useSelector((state) => state.ProductReducer);
   const { id } = useParams();
 
   var FilteredData = products.filter((item) => {
@@ -34,9 +34,11 @@ const ProductDetail = () => {
   const Data = FilteredData[0];
 
   useEffect(() => {
-   setTimeout(() => {
-      dispatch(getAsyncProductData());
-      SetLoading(false);
+    // dispatch(getAsyncProductData());
+    dispatch(getPrdData());
+
+    setTimeout(() => {
+      dispatch(setLoading(false));
     }, 800);
     // return clearTimeout(time)
   }, []);
@@ -44,7 +46,7 @@ const ProductDetail = () => {
   const addToWishlist = (data) => {
     dispatch(getWishlistData({ data }));
     dispatch(getWishlistAccessData());
-    setLiked(!Liked)
+    setLiked(!Liked);
   };
 
   const addToCart = (product) => {
@@ -153,9 +155,7 @@ const ProductDetail = () => {
                   )}
 
                   <button
-                    className={`btn btn2 ${
-                      Liked ? "liked" : "unliked"
-                    } `}
+                    className={`btn btn2 ${Liked ? "liked" : "unliked"} `}
                     onClick={() => addToWishlist(Data)}
                   >
                     {Liked ? <FaHeart /> : <IoIosHeartEmpty />}

@@ -1,13 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useState } from "react";
 
 const initialState = {
   products: [],
+  loading : true
 };
+
 
 export const ProductSlice = createSlice({
   name: "Products",
   initialState,
   reducers: {
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
     getProductData: (state, action) => {
       const updatedPrd = action.payload.map((item) => ({
         ...item,
@@ -22,6 +28,6 @@ export const ProductSlice = createSlice({
   },
 });
 
-export const { getProductData, getPrdData } = ProductSlice.actions;
+export const { setLoading , getProductData, getPrdData } = ProductSlice.actions;
 
 export default ProductSlice.reducer;

@@ -160,14 +160,24 @@ const Payment = () => {
               })}
             </div>
             <div className="middle_wrapper_right_sec">
-              {TabName === "tab1" ? <div className="pay pay1"></div> : ""}
+              {TabName === "tab1" ? <div className="pay pay1">
+                 <h4>Cash On Delivery (Cash/UPI)</h4>
+
+                 <label className="pay1_input">
+                  <div>
+                   <input type="radio" name="payment" id="" />
+                   <small>Cash on Delivery (Cash/UPI)</small>
+                   </div>
+                   <BsCashStack />
+                 </label>
+              </div> : ""}
               {TabName === "tab2" ? (
                 <div className="pay pay2">
                   <h4>Pay Using UPI</h4>
                   <div className="inp_pay">
                     <div className="wrap_label">
                       <label htmlFor="UPI1" className="inp1">
-                        <input type="radio" name="UPI" id="UPI1" />
+                        <input type="radio" name="payment" id="UPI1" />
                         <div className="wrap_pay_inp1">
                           <img src={scan} alt="" />
                           <small>Scan And Pay</small>
@@ -178,7 +188,7 @@ const Payment = () => {
                     </div>
                     <div className="wrap_label">
                       <label htmlFor="UPI2" className="inp2">
-                        <input type="radio" name="UPI" id="UPI2" />
+                        <input type="radio" name="payment" id="UPI2" />
                         <div className="wrap_pay_inp2">
                           <img src={upi} alt="" />
                           <small>Enter UPI ID</small>
@@ -281,7 +291,7 @@ const Payment = () => {
                           >
                             <input
                               type="radio"
-                              name="wallet"
+                              name="payment"
                               id={`wallet${index + 1}`}
                             />
                             <div className="wrap_pay_inp1">
@@ -311,7 +321,7 @@ const Payment = () => {
                           >
                             <input
                               type="radio"
-                              name="emi"
+                              name="payment"
                               id={`emi${index + 1}`}
                             />
                             <div className="wrap_pay_inp1">
@@ -341,7 +351,7 @@ const Payment = () => {
                           >
                             <input
                               type="radio"
-                              name="netBank"
+                              name="payment"
                               id={`netBank${index + 1}`}
                             />
                             <div className="wrap_pay_inp1">

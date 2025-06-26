@@ -7,157 +7,174 @@ import { getAsyncProductData } from "../../store/action/ProductAction";
 import { getAsyncCategoryData } from "../../store/action/CategoryAction";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../Components/Loader/Loader";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import sad from "../../assets/img/sad.gif";
-
-// const AllProduct = () => {
-//   const dispatch = useDispatch();
-//   const { products } = useSelector((state) => state.ProductReducer);
-//   const { category } = useSelector((state) => state.CategoryReducer);
-//   const [loading, SetLoading] = useState(true);
-//   const [Prdloading, SetPrdLoading] = useState(true);
-//   const [filterData, SetFilterData] = useState([]);
-//   const [PrdArr, setPrdArr] = useState([]);
-//   const { name } = useParams();
-//   const location = useLocation();
-//   const searchParams = new URLSearchParams(location.search);
-//   const selectCategory = searchParams.get("Cid");
-
-//   const BrandFilter = () => {
-//     const arr = filterData
-//       ?.filter((item) => item.product_cm)
-//       .map((item) => item.product_cm);
-
-//     const uniqueArr = arr?.filter((item, index) => arr.indexOf(item) === index);
-//     setPrdArr(uniqueArr);
-//   };
-
-//   useEffect(() => {
-//     dispatch(getAsyncProductData());
-//     dispatch(getAsyncCategoryData());
-//     SetFilterData(products);
-//   }, []);
-
-//   useEffect(() => {
-//     // if (products.length > 0) {
-//     // SetFilterData(products);
-//     SetLoading(false);
-//     // }
-//   }, [products]);
-
-//   useEffect(() => {
-//     SetPrdLoading(true);
-//     CategoryFilter();
-
-//     setTimeout(() => {
-//       SetPrdLoading(false);
-//     }, 800);
-//   }, [selectCategory]);
-
-//   useEffect(() => {
-//     BrandFilter(); // runs on filterData change
-//   }, [filterData]);
-
-//    const CategoryFilter = () => {
-//     SetFilterData(
-//       products.filter((item) => {
-//         // console.log(item);
-//         return item.cat_id === selectCategory;
-//       })
-//     );
-//   };
+import { getPrdData, setLoading } from "../../store/reducers/ProductReducer";
 
 const AllProduct = () => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.ProductReducer);
+  const { products, loading } = useSelector((state) => state.ProductReducer);
   const { category } = useSelector((state) => state.CategoryReducer);
 
-  const [loading, SetLoading] = useState(true);
-  const [Prdloading, SetPrdLoading] = useState(true);
   const [filterData, SetFilterData] = useState([]);
   const [PrdArr, setPrdArr] = useState([]);
 
   const { name } = useParams();
   const location = useLocation();
+  const nav = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const selectCategory = searchParams.get("Cid");
 
   useEffect(() => {
     dispatch(getAsyncProductData());
+    dispatch(getPrdData());
     dispatch(getAsyncCategoryData());
+    dispatch(setLoading(false));
   }, [dispatch]);
 
   useEffect(() => {
-    if (products.length > 0) {
+    if (products?.length > 0) {
       SetFilterData(products);
-      SetLoading(false);
+      dispatch(setLoading(false));
     }
   }, [products]);
 
   useEffect(() => {
     if (!selectCategory || products.length === 0) return;
 
-    SetPrdLoading(true);
-    if(selectCategory == 0){
-            console.log(selectCategory);
-
+    dispatch(setLoading(true));
+    if (selectCategory == 0) {
       SetFilterData(products);
-      
+    } else {
+      const filtered = products.filter(
+        (item) => item.cat_id === selectCategory
+      );
+      SetFilterData(filtered);
     }
-    else{
- const filtered = products.filter((item) => item.cat_id === selectCategory);
-    SetFilterData(filtered);
-    }
-   
 
-    SetPrdLoading(false);
+    dispatch(setLoading(false));
   }, [selectCategory, products]);
-  
-const SelectedBrandFnc = (data) => {
-  const arr = data.split(","); // ✅ Split string by comma
-  console.log("Array is:", arr);
-    const filtered = products.filter((item) =>
-    data.includes(item.product_cm)
-  );
-  SetFilterData(filtered); // or whatever your state setter is
-};
+
+  const SelectedBrandFnc = (data) => {
+    if (data.length > 0) {
+      const arrData = data.split(",");
+      let uniqueData = [...new Set(arrData)];
+
+      const arr = uniqueData.map((item) => {
+        return products.filter((data) => {
+          return data.product_cm === item;
+        });
+      });
+      console.log(arr.flat());
+
+      SetFilterData(arr.flat()); // or whatever your state setter is
+    } else {
+      SetFilterData(products);
+      nav(`/AllProduct/All?Cid=0`);
+    }
+  };
+
+  const priceSelection = (data) => {
+    const FilterPrice = products.filter((item) => {
+      return item.price > data;
+    });
+    console.log(FilterPrice);
+
+    SetFilterData(FilterPrice);
+  };
+  const sortingDataFnc = (item) => {
+    console.log(item);
+
+    let sortedData;
+    if (item === "Recomendation") {
+      const filtered = products.filter(
+        (item) => item.cat_id === selectCategory
+      );
+      dispatch(setLoading(true));
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 800);
+
+      SetFilterData(filtered);
+    } else if (item === "A to Z") {
+      sortedData = [...filterData].sort((a, b) =>
+        a.product_nm.localeCompare(b.product_nm)
+      );
+       dispatch(setLoading(true));
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 800);
+      SetFilterData(sortedData);
+    } else if (item === "Z to A") {
+      sortedData = [...filterData].sort((a, b) =>
+        b.product_nm.localeCompare(a.product_nm)
+      );
+       dispatch(setLoading(true));
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 800);
+      SetFilterData(sortedData);
+    } else if (item === "Low To High") {
+      sortedData = [...filterData].sort((a, b) =>
+        a.price.localeCompare(b.price)
+      );
+       dispatch(setLoading(true));
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 800);
+      SetFilterData(sortedData);
+    } else if (item === "High To Low") {
+      sortedData = [...filterData].sort((a, b) =>
+        b.price.localeCompare(a.price)
+      );
+       dispatch(setLoading(true));
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 800);
+      SetFilterData(sortedData);
+    }
+
+    // console.log(sortedData);
+  };
 
   useEffect(() => {
-    const arr = filterData
+    const arr = products
       ?.filter((item) => item.product_cm)
       .map((item) => item.product_cm);
 
     const uniqueArr = [...new Set(arr)];
     setPrdArr(uniqueArr);
-  }, [filterData]);
-
-
+  }, [products]);
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
+      
         <div className="all_product mt_custom">
           <ProductHeading
             categoryName={name}
             itemNumbers={filterData?.length}
           />
           <div className="wrapper_all_product">
-            {/* <FilterHead data={filterData , SetFilterData} /> */}
+            <FilterHead sortingDataFnc={sortingDataFnc} />
             <div className="wrapper_all_product_main_sec">
               <div className="wrapper_all_product_left">
-                <FilterLeft data={category} prd={PrdArr} catId={selectCategory} brandSelection={SelectedBrandFnc} />
+                <FilterLeft
+                  data={category}
+                  prd={PrdArr}
+                  catId={selectCategory}
+                  priceSelection={priceSelection}
+                  brandSelection={SelectedBrandFnc}
+                />
               </div>
               <div
                 className={`wrapper_all_product_right ${
-                  filterData.length === 0 ? "nothing" : ""
+                  filterData?.length === 0 ? "nothing" : ""
                 }`}
               >
-                {Prdloading ? (
+                {loading ? (
                   <Loader />
-                ) : filterData.length > 0 ? (
-                  filterData.map((item, index) => (
+                ) : filterData?.length > 0 ? (
+                  filterData?.map((item, index) => (
                     <ProductCard key={index} data={item} />
                   ))
                 ) : (
@@ -170,7 +187,7 @@ const SelectedBrandFnc = (data) => {
             </div>
           </div>
         </div>
-      )}
+     
     </>
   );
 };

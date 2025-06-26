@@ -5,9 +5,6 @@ import HomeProductSec from "../../Components/HomeProductSec/HomeProductSec";
 
 const HomePage = () => {
 
-  
-  
-
   return (
     <>
 

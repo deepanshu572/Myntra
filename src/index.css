@@ -549,13 +549,14 @@ hr {
 
 .wrapper_all_product_right {
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 25px;
     flex-wrap: wrap;
     border: 1px solid #F4F4F5;
     border-left: 0;
     padding: 15px;
     padding-left: 26px;
+    position: relative;
 }
 
 .wrapper_all_product_left {
@@ -1427,6 +1428,7 @@ hr {
 
 .nothing {
     flex-direction: column;
+    align-items: center;
 }
 
 .nothing img {
@@ -2333,7 +2335,37 @@ background-color: red;
 .active_tab h3 {
     color: #FF3F6C !important;
 }
+.footer{
+    display: none;
+}
+.wrap_label{
+        border-bottom: 1px solid #e1e1e1;
+}
+.pay1_input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 23px 16px;
+    cursor: pointer;
+}
 
+.pay1_input > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pay1_input svg{
+        width: 25px;
+    height: 20px;
+}
+.pay > h4{
+        color: #424553;
+}
+.pay1_input > div > small {
+    font-weight: 600;
+    font-size: 14.6px;
+}
 @media screen and (max-width: 500px) {
     .payment .left_handle{
     width: 95%;

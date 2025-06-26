@@ -11,12 +11,19 @@ import CalculationPart from "../../Components/CheckoutComponent/CalculationPart"
 import { RxCross2 } from "react-icons/rx";
 import AddressBox from "../../Components/Address/AddressBox";
 import AccordationSec from "../../Components/Accordation/AccordationSec";
+import Loader from "../../Components/Loader/Loader";
+import { setLoading } from "../../store/reducers/ProductReducer";
 
 const Cart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartAccessData());
+    dispatch(setLoading(true));
+    setTimeout(() => {
+          dispatch(setLoading(false));
+
+    }, 800);
     localStorage.setItem("donation", false);
   }, []);
 
@@ -29,6 +36,8 @@ const Cart = () => {
     JSON.parse(localStorage.getItem("Address")) || []
   );
   const { cart } = useSelector((state) => state.CartReducer);
+  const { loading } = useSelector((state) => state.ProductReducer);
+
 
   const amtArr = [
     {
@@ -80,30 +89,30 @@ const Cart = () => {
 
   return (
     <>
-      {cart.length > 0 ? (
+    {
+      loading ? <Loader/> : (
+        cart?.length > 0 ? (
         <div className="cart_page mt_custom">
           <div className="cart_page_left">
             <div className="cart_page_top_one">
-              {
-                Address?.length > 0 ? ( <div className="cart_detail_left_top">
-                <h4>
-                  Deliver to : <b>Form , 834009</b>
-                </h4>
-                <p>Dr colony Rims J block , bariatu, Ranchi</p>
-              </div>): (
+              {Address?.length > 0 ? (
+                <div className="cart_detail_left_top">
+                  <h4>
+                    Deliver to : <b>Form , 834009</b>
+                  </h4>
+                  <p>Dr colony Rims J block , bariatu, Ranchi</p>
+                </div>
+              ) : (
                 <h4>Add Your Address</h4>
-              )
-              }
-             
+              )}
+
               <div className="cart_detail_right_top">
                 <button onClick={() => setmodal(true)}>
-                  {
-                    Address?.length > 0 ? "Change Address" : "Add Address"
-                  }
-                  </button>
+                  {Address?.length > 0 ? "Change Address" : "Add Address"}
+                </button>
               </div>
             </div>
-           <AccordationSec/>
+            <AccordationSec />
             <div className="cart_page_top_three">
               <div className="cart_page_top_three_head">
                 <h4>Your items</h4>
@@ -200,10 +209,13 @@ const Cart = () => {
             <button>Keep browsing</button>
           </Link>
         </div>
-      )}
+      )
+      )
+    }
+     
 
       {modal ? (
-        <div className="wrapper_address_form" >
+        <div className="wrapper_address_form">
           <div className="form_address">
             <div className="select_form_Sec">
               <h3>Select Address</h3>
@@ -219,13 +231,12 @@ const Cart = () => {
                     setAddress={setAddress}
                   />
                 </div>
-                                  <div className="btn_save">Save</div>
-
+                <div className="btn_save">Save</div>
               </React.Fragment>
             ) : (
               <div className="nothingAddress">
                 <img src={sad} alt="" />
-                <Link to={"/Address"}>+Add Address</Link>
+                <Link to={"/checkout/Address"}>+Add Address</Link>
               </div>
             )}
           </div>
