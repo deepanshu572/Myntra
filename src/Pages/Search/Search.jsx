@@ -20,31 +20,33 @@ const Search = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (query == "AllData") {
-      console.log("aa gya ma");
+    setTimeout(() => {
+      if (query == "AllData") {
+        console.log("aa gya ma");
 
-      setFilterSearch(products);
+        setFilterSearch(products);
 
-      SetLoading(false);
-      return;
-    }
-
-    if (products.length > 0 && query.length > 0) {
-      const lowerQuery = query.toLowerCase();
-
-      const filtered = products.filter((item) => {
-        return (
-          item.cat_nm?.toLowerCase().includes(lowerQuery) ||
-          item.product_nm?.toLowerCase().includes(lowerQuery) ||
-          item.brand_nm?.toLowerCase().includes(lowerQuery)
-        );
-      });
-      SetLoading(true);
-      setFilterSearch(filtered);
-      setTimeout(() => {
         SetLoading(false);
-      }, 800);
-    }
+        return;
+      }
+
+      if (products.length > 0 && query.length > 0) {
+        const lowerQuery = query.toLowerCase();
+
+        const filtered = products.filter((item) => {
+          return (
+            item.cat_nm?.toLowerCase().includes(lowerQuery) ||
+            item.product_nm?.toLowerCase().includes(lowerQuery) ||
+            item.brand_nm?.toLowerCase().includes(lowerQuery)
+          );
+        });
+        SetLoading(true);
+        setFilterSearch(filtered);
+        setTimeout(() => {
+          SetLoading(false);
+        }, 800);
+      }
+    }, 900);
   }, [products, query]);
 
   //       if(query.length < 1) {

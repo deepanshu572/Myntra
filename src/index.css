@@ -1516,6 +1516,9 @@ input[type=checkbox] {
 }
 
 @media screen and (max-width : 800px) {
+    .filter_head_content{
+        display: none;
+    }
     .search_data .product_card {
         width: 23%;
     }

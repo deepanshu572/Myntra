@@ -3,10 +3,9 @@ import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 const NavSearchSec = () => {
-    // const [query, setQuery] = useState();
+  // const [query, setQuery] = useState();
 
   const navigate = useNavigate();
-
 
   // const handleKeyDown = (e) => {
   //   if (e.key === "Enter") {
@@ -16,14 +15,12 @@ const NavSearchSec = () => {
 
   const handleSearch = (query) => {
     console.log("Searching for:", query);
-    if(query === ""){
+    if (query === "") {
       console.log("blank ha bhai");
       query = "AllData";
-      
     }
-  
+
     navigate(`/Search/${query}`);
-    
   };
 
   return (

@@ -82,56 +82,57 @@ const AllProduct = () => {
 
     SetFilterData(FilterPrice);
   };
-  const sortingDataFnc = (item) => {
-    console.log(item);
-
-    let sortedData;
-    if (item === "Recomendation") {
+  const AllDataFnc = () => {
+     if (selectCategory == 0) {
+      LoadingFnc(products);
+    } else {
       const filtered = products.filter(
         (item) => item.cat_id === selectCategory
       );
-      dispatch(setLoading(true));
-      setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 800);
+      LoadingFnc(filtered);
+    }
 
-      SetFilterData(filtered);
+  };
+  const acendingOrderFnc = () => {
+    sortedData = [...filterData].sort((a, b) =>
+      a.product_nm.localeCompare(b.product_nm)
+    );
+    LoadingFnc(sortedData);
+  };
+  const decendingOrderFnc = () => {
+    sortedData = [...filterData].sort((a, b) =>
+      b.product_nm.localeCompare(a.product_nm)
+    );
+    LoadingFnc(sortedData);
+  };
+  const lowToHighFnc = () => {
+    sortedData = [...filterData].sort((a, b) => a.price.localeCompare(b.price));
+    LoadingFnc(sortedData);
+  };
+  const highToLowFnc = () => {
+    sortedData = [...filterData].sort((a, b) => b.price.localeCompare(a.price));
+    LoadingFnc(sortedData);
+  };
+  const LoadingFnc = (filtered) => {
+    dispatch(setLoading(true));
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 800);
+
+    SetFilterData(filtered);
+  };
+  let sortedData;
+  const sortingDataFnc = (item) => {
+    if (item === "Recomendation") {
+      AllDataFnc();
     } else if (item === "A to Z") {
-      sortedData = [...filterData].sort((a, b) =>
-        a.product_nm.localeCompare(b.product_nm)
-      );
-       dispatch(setLoading(true));
-      setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 800);
-      SetFilterData(sortedData);
+      acendingOrderFnc();
     } else if (item === "Z to A") {
-      sortedData = [...filterData].sort((a, b) =>
-        b.product_nm.localeCompare(a.product_nm)
-      );
-       dispatch(setLoading(true));
-      setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 800);
-      SetFilterData(sortedData);
+      decendingOrderFnc();
     } else if (item === "Low To High") {
-      sortedData = [...filterData].sort((a, b) =>
-        a.price.localeCompare(b.price)
-      );
-       dispatch(setLoading(true));
-      setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 800);
-      SetFilterData(sortedData);
+      lowToHighFnc();
     } else if (item === "High To Low") {
-      sortedData = [...filterData].sort((a, b) =>
-        b.price.localeCompare(a.price)
-      );
-       dispatch(setLoading(true));
-      setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 800);
-      SetFilterData(sortedData);
+      highToLowFnc();
     }
 
     // console.log(sortedData);
@@ -148,46 +149,41 @@ const AllProduct = () => {
 
   return (
     <>
-      
-        <div className="all_product mt_custom">
-          <ProductHeading
-            categoryName={name}
-            itemNumbers={filterData?.length}
-          />
-          <div className="wrapper_all_product">
-            <FilterHead sortingDataFnc={sortingDataFnc} />
-            <div className="wrapper_all_product_main_sec">
-              <div className="wrapper_all_product_left">
-                <FilterLeft
-                  data={category}
-                  prd={PrdArr}
-                  catId={selectCategory}
-                  priceSelection={priceSelection}
-                  brandSelection={SelectedBrandFnc}
-                />
-              </div>
-              <div
-                className={`wrapper_all_product_right ${
-                  filterData?.length === 0 ? "nothing" : ""
-                }`}
-              >
-                {loading ? (
-                  <Loader />
-                ) : filterData?.length > 0 ? (
-                  filterData?.map((item, index) => (
-                    <ProductCard key={index} data={item} />
-                  ))
-                ) : (
-                  <div className="no_results">
-                    <img src={sad} alt="Nothing found" />
-                    <p>Nothing is in the box</p>
-                  </div>
-                )}
-              </div>
+      <div className="all_product mt_custom">
+        <ProductHeading categoryName={name} itemNumbers={filterData?.length} />
+        <div className="wrapper_all_product">
+          <FilterHead sortingDataFnc={sortingDataFnc} />
+          <div className="wrapper_all_product_main_sec">
+            <div className="wrapper_all_product_left">
+              <FilterLeft
+                data={category}
+                prd={PrdArr}
+                catId={selectCategory}
+                priceSelection={priceSelection}
+                brandSelection={SelectedBrandFnc}
+              />
+            </div>
+            <div
+              className={`wrapper_all_product_right ${
+                filterData?.length === 0 ? "nothing" : ""
+              }`}
+            >
+              {loading ? (
+                <Loader />
+              ) : filterData?.length > 0 ? (
+                filterData?.map((item, index) => (
+                  <ProductCard key={index} data={item} />
+                ))
+              ) : (
+                <div className="no_results">
+                  <img src={sad} alt="Nothing found" />
+                  <p>Nothing is in the box</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
-     
+      </div>
     </>
   );
 };
