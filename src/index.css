@@ -1825,7 +1825,7 @@ background-color: red;
 .wrapper_address_form {
     position: fixed;
     background: #66666694;
-    width: 100%;
+    width: 100% !important;
     height: 100%;
     top: 0;
     display: flex;
