@@ -11,7 +11,7 @@ const CalculationPart = ({ cart, donationStatus, donationAmt, sts , render }) =>
   });
 
   DiscountAmount = Fprice - price;
-  console.log(price, Fprice);
+  // console.log(price, Fprice);
 
   return (
     <div className="cart_calculation_sec">

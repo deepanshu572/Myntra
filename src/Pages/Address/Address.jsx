@@ -19,6 +19,8 @@ const Address = () => {
   const dispatch = useDispatch();
   const [sts, setsts] = useState(true);
   const [modal, setmodal] = useState(false);
+  const [EditId, setEditId] = useState();
+  const [selectedType, setSelectedType] = useState("");
   const [Address, setAddress] = useState(
     JSON.parse(localStorage.getItem("Address")) || []
   );
@@ -49,12 +51,10 @@ const Address = () => {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    const selectedType =
-      document.querySelector('input[name="addressData"]:checked')?.value || "";
-    console.log(selectedType);
+  
 
     const addressData = {
-      id: Date.now(),
+      id: EditId || Date.now(),
       name: name.current.value,
       mobile: mobile.current.value,
       pincode: pincode.current.value,
@@ -62,10 +62,17 @@ const Address = () => {
       town: town.current.value,
       checked: selectedType,
     };
-    // console.log(checked.current.value);
 
     const ExistingAddress = JSON.parse(localStorage.getItem("Address")) || [];
-    const AllAddress = [...ExistingAddress, addressData];
+
+    let AllAddress;
+    if (EditId) {
+      AllAddress = ExistingAddress.map((item) => {
+        return item.id === EditId ? addressData : item;
+      });
+    } else {
+      AllAddress = [...ExistingAddress, addressData];
+    }
 
     console.log(AllAddress);
 
@@ -76,10 +83,29 @@ const Address = () => {
     pincode.current.value = "";
     address.current.value = "";
     town.current.value = "";
+    setEditId(null);
+    setmodal(false);
     selectedType.rem;
     document
       .querySelector('input[name="addressData"]')
       .removeAttribute("checked");
+  };
+  const handleEditForm = (id) => {
+    console.log(id);
+    const NewDta = Address.filter((item) => item.id === id);
+    setEditId(id);
+
+    if (NewDta.length > 0) {
+      setTimeout(() => {
+        const selected = NewDta[0];
+        (id = id), (name.current.value = selected.name);
+        mobile.current.value = selected.mobile;
+        pincode.current.value = selected.pincode;
+        address.current.value = selected.address;
+        town.current.value = selected.town;
+        checked = selectedType;
+      }, 0);
+    }
   };
 
   return (
@@ -96,8 +122,9 @@ const Address = () => {
                 <label htmlFor="home">
                   <input
                     type="radio"
-                    value={"Home"}
-                    name="addressData"
+                    value="Home"
+                    checked={selectedType === "Home"}
+                    onChange={(e) => setSelectedType(e.target.value)}
                     id="home"
                   />
                   Home
@@ -105,8 +132,9 @@ const Address = () => {
                 <label htmlFor="office">
                   <input
                     type="radio"
-                    value={"office"}
-                    name="addressData"
+                    value="office"
+                    checked={selectedType === "office"}
+                    onChange={(e) => setSelectedType(e.target.value)}
                     id="office"
                   />
                   office
@@ -175,6 +203,7 @@ const Address = () => {
               Address={Address}
               setmodal={setmodal}
               setAddress={setAddress}
+              handleEditForm={handleEditForm}
             />
           </div>
           <div className="address_data_btn">

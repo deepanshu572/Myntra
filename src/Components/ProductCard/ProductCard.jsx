@@ -6,10 +6,10 @@ import { RiHeart2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import {
   getWishlistAccessData,
-  getWishlistData,
+  
 } from "../../store/reducers/WishlistReducer";
 import { useDispatch } from "react-redux";
-import { getPrdData } from "../../store/reducers/ProductReducer";
+import { getPrdData , getWishlistData } from "../../store/reducers/ProductReducer";
 
 const ProductCard = ({ data }) => {
   console.log(data);

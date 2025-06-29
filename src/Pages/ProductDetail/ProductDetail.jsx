@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BsFillHandbagFill } from "react-icons/bs";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-// import { getAsyncProductData } from "../../store/action/ProductAction";
 import {
   getCartAccessData,
   getCartData,
@@ -11,17 +10,18 @@ import { useParams } from "react-router";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import Loader from "../../Components/Loader/Loader";
+import { getWishlistAccessData } from "../../store/reducers/WishlistReducer";
 import {
-  getWishlistAccessData,
+  getPrdData,
+  setLoading,
   getWishlistData,
-} from "../../store/reducers/WishlistReducer";
-import { getPrdData, setLoading } from "../../store/reducers/ProductReducer";
+} from "../../store/reducers/ProductReducer";
 
 const ProductDetail = () => {
   const [SelectedInp, setSelectedInp] = useState("");
   const [wishlistStatus, setwishlistStatus] = useState(false);
   const sizeArr = ["S", "M", "XL", "XXL"];
-  const [Liked, setLiked] = useState(false);
+  const [Liked, setLiked] = useState();
 
   const [Cart, setCart] = useState(false);
   const dispatch = useDispatch();
@@ -34,18 +34,18 @@ const ProductDetail = () => {
   const Data = FilteredData[0];
 
   useEffect(() => {
-    // dispatch(getAsyncProductData());
     dispatch(getPrdData());
 
     setTimeout(() => {
       dispatch(setLoading(false));
     }, 800);
-    // return clearTimeout(time)
   }, []);
 
   const addToWishlist = (data) => {
     dispatch(getWishlistData({ data }));
     dispatch(getWishlistAccessData());
+    // dispatch(getPrdData());
+
     setLiked(!Liked);
   };
 
@@ -155,12 +155,14 @@ const ProductDetail = () => {
                   )}
 
                   <button
-                    className={`btn btn2 ${Liked ? "liked" : "unliked"} `}
+                    className={`btn btn2 ${
+                      Data.wishlist ? "liked" : "unliked"
+                    } `}
                     onClick={() => addToWishlist(Data)}
                   >
-                    {Liked ? <FaHeart /> : <IoIosHeartEmpty />}
+                    {Data.wishlist ? <FaHeart /> : <IoIosHeartEmpty />}
 
-                    {Liked ? "Wishlisted" : "Wishlist"}
+                    {Data.wishlist ? "Wishlisted" : "Wishlist"}
                   </button>
                 </div>
                 <div className="desc">

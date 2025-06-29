@@ -21,8 +21,7 @@ const Cart = () => {
     dispatch(getCartAccessData());
     dispatch(setLoading(true));
     setTimeout(() => {
-          dispatch(setLoading(false));
-
+      dispatch(setLoading(false));
     }, 800);
     localStorage.setItem("donation", false);
   }, []);
@@ -31,13 +30,14 @@ const Cart = () => {
   const [donationAmt, setDonationAmt] = useState();
   const [donationStatus, setDonationStatus] = useState(false);
   const [modal, setmodal] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState();
+  const [selectedId, setSelectedId] = useState();
 
   const [Address, setAddress] = useState(
     JSON.parse(localStorage.getItem("Address")) || []
   );
   const { cart } = useSelector((state) => state.CartReducer);
   const { loading } = useSelector((state) => state.ProductReducer);
-
 
   const amtArr = [
     {
@@ -85,22 +85,38 @@ const Cart = () => {
   useEffect(() => {
     setDonationStatus(localStorage.getItem("donation"));
   }, [handleChangeInp, handleDonationFnc]);
-  console.log(donationStatus);
+
+  console.log(selectedId);
+
+  const AddAddressSaveFnc = () => {
+    const SelectAddress = Address?.filter((item) => {
+      return item.id == selectedId;
+    });
+    console.log(SelectAddress);
+
+    setSelectedAddress(SelectAddress?.[0]);
+    setmodal(false)
+  };
 
   return (
     <>
-    {
-      loading ? <Loader/> : (
-        cart?.length > 0 ? (
+      {loading ? (
+        <Loader />
+      ) : cart?.length > 0 ? (
         <div className="cart_page mt_custom">
           <div className="cart_page_left">
             <div className="cart_page_top_one">
               {Address?.length > 0 ? (
                 <div className="cart_detail_left_top">
                   <h4>
-                    Deliver to : <b>Form , 834009</b>
+                    Deliver to :{" "}
+                    <b>
+                      {selectedAddress?.name || Address?.[0].name} {selectedAddress?.pincode || Address?.[0].pincode}
+                    </b>
                   </h4>
-                  <p>Dr colony Rims J block , bariatu, Ranchi</p>
+                  <p>
+                    {selectedAddress?.address || Address?.[0].address} , {selectedAddress?.town || Address?.[0].town}
+                  </p>
                 </div>
               ) : (
                 <h4>Add Your Address</h4>
@@ -209,10 +225,7 @@ const Cart = () => {
             <button>Keep browsing</button>
           </Link>
         </div>
-      )
-      )
-    }
-     
+      )}
 
       {modal ? (
         <div className="wrapper_address_form">
@@ -229,9 +242,12 @@ const Cart = () => {
                     Address={Address}
                     setmodal={setmodal}
                     setAddress={setAddress}
+                    handleSaveFnc={(id) => setSelectedId(id)}
                   />
                 </div>
-                <div className="btn_save">Save</div>
+                <div className="btn_save" onClick={AddAddressSaveFnc}>
+                  Save
+                </div>
               </React.Fragment>
             ) : (
               <div className="nothingAddress">
