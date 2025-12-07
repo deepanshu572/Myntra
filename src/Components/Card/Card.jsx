@@ -15,7 +15,7 @@ const Card = ({data}) => {
        <div className="card_bottom_content">
            <h3>{data.name}</h3>
         {/* <span>   <span>{data.discount}</span> off</span> */}
-           <p>Shop Now</p>
+           {/* <p>Shop Now</p> */}
 
            
        </div>

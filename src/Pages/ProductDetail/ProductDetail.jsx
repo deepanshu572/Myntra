@@ -22,6 +22,7 @@ const ProductDetail = () => {
   const [wishlistStatus, setwishlistStatus] = useState(false);
   const sizeArr = ["S", "M", "XL", "XXL"];
   const [Liked, setLiked] = useState();
+  const [displayImg, setDisplayImg] = useState("");
 
   const [Cart, setCart] = useState(false);
   const dispatch = useDispatch();
@@ -63,6 +64,9 @@ const ProductDetail = () => {
 
   const imgLink = "https://pos.kalamitcompany.com/api/images/";
 
+  const imageSwap = (item)=>{
+    setDisplayImg(imgLink + item);
+  }
   return (
     <>
       {loading ? (
@@ -71,16 +75,20 @@ const ProductDetail = () => {
         <div className="product_detail mt_custom">
           <div className="product_detail_head_txt">
             <p>
-              Home / Clothing / Women Clothing / Kurta Sets /{" "}
-              <b> Sangria Kurta Sets > More by Sangria </b>
+              Home / {Data?.product_cm} /  <b>  More by {Data?.product_cm} </b>
             </p>
           </div>
 
           <div className="product_detail_wrarpper">
+            <div className="prd_img">
+            <div className="big_img_sec">
+                  <img src={displayImg || (Data?.imgs ? imgLink + Data.imgs[0] : "")} alt="" />
+            </div>
             <div className="product_detail_img_left_sec">
               {Data?.imgs?.map((item) => {
-                return <img src={imgLink + item} />;
+                return <div className="image"> <img onClick={()=>imageSwap(item)} src={imgLink + item} /> </div>;
               })}
+            </div>
             </div>
             <div className="product_detail_content">
               <h3>{Data?.product_cm}</h3>

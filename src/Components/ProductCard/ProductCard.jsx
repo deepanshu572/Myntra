@@ -42,8 +42,9 @@ const ProductCard = ({ data }) => {
         </div>
 
         <div className="product_text">
+           <h5>Brand - {data.product_cm}</h5>
           <h4>{data.product_nm}</h4>
-          <h5>{data.product_cm}</h5>
+         
           <div className="price_card">
             <span>
               {" "}

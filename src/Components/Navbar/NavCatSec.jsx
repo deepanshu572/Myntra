@@ -16,33 +16,11 @@ const NavCatSec = () => {
     return e.parent_id == 0;
   });
 
-    const navData = [
-        {
-            name: "Men"
-        },
-        {
-            name: "Women"
-        },
-        {
-            name: "Kids"
-        },
-        {
-            name: "Home"
-        },
-        {
-            name: "Beauty"
-        },
-        {
-            name: "Genz"
-        },
-        {
-            name: "Studio"
-        },
-    ]
+  
   return (
     <div className='cat_nav'>
     {
-        FilterMainCat.map((item , index)=>{
+        FilterMainCat.slice(0, 4).map((item , index)=>{
             return(
                 <Link to={`AllProduct/${item.name}?Cid=${item.id}`}>
             <button key={index}>{item.name}</button>   

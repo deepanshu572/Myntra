@@ -1,0 +1,15 @@
+    position: relative;
+    border: 1px solid #e6e6e6;
+    cursor: pointer;
+    background: rgb(255, 255, 255);
+    border: 0.5px solid rgb(232, 232, 232);
+    box-shadow: rgba(0, 0, 0, 0.04) 2px 2px 8px;
+    border-radius: 8px;
+
+        width: 200px;
+
+
+
+
+        .product_wrapper {
+    gap: 12px;

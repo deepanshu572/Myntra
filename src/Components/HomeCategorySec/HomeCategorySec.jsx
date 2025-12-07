@@ -18,8 +18,9 @@ const HomeCategorySec = () => {
 
   return (
     <div className="category_home">
-      <div className="head_category_heading">
-        <img src={categoryHead} alt="" />
+        <div className="top_head">
+      <h3>Our Category</h3>
+      <p>Discover the essence of perfection in every product.</p>
       </div>
       <div className="category_div">
         {filterData.map((item, index) => {
